@@ -1,0 +1,43 @@
+{% extends 'Admin/base.html.twig' %}
+{% set page_title="Events" %}
+{% block body %}
+    <table class="table">
+        <tr>
+            <th>
+                Event Name
+            </th>
+            <th>
+                Event Description
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td>
+                    {{ event.name }}<br />
+                </td>
+                <td>
+                    {{ event.description }}<br />
+                </td>
+                <td>
+                    {{ event.date|date('Y-m-d') }}<br />
+                </td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('app_admin_event_show', {'id': event.id}) }}">Show</a>
+
+                    <a class="btn btn-primary" href="{{ path('app_admin_event_edit', {'id': event.id}) }}">Edit</a>
+
+                    <a class="btn btn-warning" href="{{ path('app_admin_event_delete', {'id': event.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a class="btn btn-primary" href="{{ path('app_admin_event_create') }}">Create New Event</a>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}

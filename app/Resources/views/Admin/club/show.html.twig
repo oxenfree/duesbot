@@ -1,0 +1,37 @@
+{% extends 'Admin/base.html.twig' %}
+{% set page_title="Club" %}
+{% block body %}
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Treasury
+        </th>
+        <th>
+            Edit
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {{ club.name }}<br />
+        </td>
+        <td>
+            {{ club.description }}<br />
+        </td>
+        <td>
+            {{ club.treasury }}<br />
+        </td>
+        <td>
+            <a class="btn btn-default" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
+        </td>
+    </tr>
+</table>
+<a href="{{ path('app_admin_club_list_all') }}">Back to the list</a>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}

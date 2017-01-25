@@ -1,0 +1,43 @@
+{% extends 'Admin/base.html.twig' %}
+{% set page_title="Clubs" %}
+{% block body %}
+    <table class="table">
+        <tr>
+            <th>
+                Club Name
+            </th>
+            <th>
+                Club Description
+            </th>
+            <th>
+                Treasury
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+        {% for club in clubs %}
+            <tr>
+                <td>
+                    {{ club.name }}<br />
+                </td>
+                <td>
+                    {{ club.description }}<br />
+                </td>
+                <td>
+                    {{ club.treasury }}<br />
+                </td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('app_admin_club_show', {'id': club.id}) }}">Show</a>
+
+                    <a class="btn btn-primary" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
+
+                    <a class="btn btn-warning" href="{{ path('app_admin_club_delete', {'id': club.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a class="btn btn-primary" href="{{ path('app_admin_club_create') }}">Create New Club</a>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}
