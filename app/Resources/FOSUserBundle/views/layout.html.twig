@@ -9,6 +9,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
         <style>
@@ -18,7 +19,7 @@
     <body>
         <div class="container">
             <nav>
-                <div class="nav-wrapper blue-grey lighten-2">
+                <div class="nav-wrapper teal lighten-2">
                     <a href="{{ path('app_index') }}" class="brand-logo">duebat</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -32,8 +33,19 @@
                     </ul>
                 </div>
             </nav>
-            {% block body %}{% endblock %}
-        </div>
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <div>
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+    </div>
     </body>
-    {% block javascripts %}{% endblock %}
 </html>

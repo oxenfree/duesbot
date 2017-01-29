@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Club;
+use AppBundle\Entity\Event;
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +20,27 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        $template = 'default/index.html.twig';
+        $renderParams = [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ]);
+            'allUsers' => $this->get('fos_user.user_manager')->findUsers(),
+            'allClubs' => $this->getDoctrine()->getRepository(Club::class)->findAll(),
+            'allEvents' => $this->getDoctrine()->getRepository(Event::class)->findAll(),
+        ];
+        $checker = $this->get('security.authorization_checker');
+
+        if ($checker->isGranted('ROLE_USER'))   {
+            unset($template);
+            $template = 'default/index_logged_in.html.twig';
+            $currentUser = $this->getUser();
+            $club = $currentUser->getClub();
+            $renderParams = [
+                'user' => $currentUser,
+                'club' => $club,
+                'events' => $club->getEvents(),
+            ];
+        }
+
+        return $this->render($template, $renderParams);
     }
 }

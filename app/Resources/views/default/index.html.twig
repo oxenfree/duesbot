@@ -1,53 +1,37 @@
 {% extends 'base.html.twig' %}
 {% set page_title="Welcome" %}
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Ollie, welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
-            </div>
+    <div class="row">
 
-            <div id="status">
-                <p>
-                    Your application is now ready. You can start working on it at:
-                </p>
+        <div class="col s4">
+            <div class="card-panel blue-grey darken-1">
+              <span class="white-text">
+                  There are {{ allUsers|length }} users. <br />
+                  <a href="{{ path('app_admin_user_list_all') }}">Member Admin Page</a>
+              </span>
             </div>
-
-            <div id="next">
-                <h2>What's next?</h2>
-                <p>
-                    <a href="/admin">Admin</a>
-                </p>
-            </div>
-
         </div>
+        <div class="col s4">
+            <div class="card-panel blue-grey darken-1">
+              <span class="white-text">
+                  There are {{ allClubs|length }} clubs.<br />
+                  <a href="{{ path('app_admin_club_list_all') }}">Club Admin Page</a>
+              </span>
+            </div>
+        </div>
+        <div class="col s4">
+            <div class="card-panel blue-grey darken-1">
+              <span class="white-text">
+                  There are {{ allEvents|length }} events.<br />
+                  <a href="{{ path('app_admin_event_list_all') }}">Event Admin Page</a>
+              </span>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
 
 {% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #000; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
-
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
-
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
+    <style>
+    </style>
 {% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% set page_title="Welcome" %}
+{% block body %}
+<div class="row">
+    <div class="section col s12">
+        <h5>{{ user.userName }},</h5>
+        <p>
+            Your club, {{ club.name }}, has a treasury of: <strong>${{ club.treasury|number_format(2) }}</strong>
+        </p>
+        {% if events %}
+            And you have events.
+            <table class="highlight">
+                <thead>
+                <tr>
+                    <th>
+                        Event
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Score
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+            {% for event in events %}
+                <tbody>
+                <tr>
+                    <td>
+                        {{ event.name }}
+                    </td>
+                    <td>
+                        {{ event.date|date('M/d/Y') }}
+                    </td>
+                    <td>
+                        {{ event.status }}
+                    </td>
+                    <td>
+                        {{ event.voteTotal }}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Event page</a>
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        {% endif %}
+        <br />
+        <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    </style>
+{% endblock %}

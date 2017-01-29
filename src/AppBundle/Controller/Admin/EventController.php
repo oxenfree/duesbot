@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Club;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -49,10 +50,12 @@ class EventController extends Controller
     public function createAction(Request $request)
     {
         $event = new Event();
+        $bcEast = $this->getDoctrine()->getRepository(Club::class)->find(1);
         $form = $this->createForm(EventEditType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
+            $event->setClub($bcEast);
             $event->setVotingStart(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);

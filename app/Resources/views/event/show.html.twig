@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% set page_title="Event" %}
+{% block body %}
+<div class="row">
+    <div class="section col s8">
+        <h5>{{ event.name }}</h5>
+        <p>
+            {{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }}
+        </p>
+        <p>
+            {{ event.description }}
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Score
+                </th>
+                <th>
+                    Vote on this event
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    {{ event.status }}
+                </td>
+                <td>
+                    {{ event.voteTotal }}
+                </td>
+                <td>
+                    <a href="{{ path('app_event_vote_yes', {'id': event.id}) }}" class="btn waves-effect waves-light teal" {{ voteYes == true ? 'disabled' }}>Yep!</a>
+                    <a href="{{ path('app_event_vote_no', {'id': event.id}) }}" class="btn waves-effect waves-ligt red lighten-2" {{ voteNo == true ? 'disabled' }}>No</a><br />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<a href="{{ path('app_index') }}">Back to the list</a>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}

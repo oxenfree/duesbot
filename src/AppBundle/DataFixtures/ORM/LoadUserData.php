@@ -2,12 +2,12 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\Member;
+use AppBundle\Entity\User;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadMemberData extends AbstractFixture implements OrderedFixtureInterface
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -18,45 +18,37 @@ class LoadMemberData extends AbstractFixture implements OrderedFixtureInterface
     {
         $memberTraits = [
             [
-                'firstName' => 'Fritz',
-                'lastName' => 'Duebat',
-                'nickName' => 'Brick',
-                'phone' => 66,
+                'userName' => 'Ollie',
                 'email' => 'asolivieri@gmail.com',
                 'plainPassword' => 'password',
+                'role' => 'ROLE_ADMIN'
             ],
             [
-                'firstName' => 'Frantz',
-                'lastName' => 'Twobat',
-                'nickName' => 'Kip',
-                'phone' => 66,
+                'userName' => 'Kip',
                 'email' => 'member@duebat.com',
                 'plainPassword' => 'password',
+                'role' => 'ROLE_ADMIN'
             ],
             [
-                'firstName' => 'Frank',
-                'lastName' => 'Duerat',
-                'nickName' => 'Kerry',
-                'phone' => 66,
+                'userName' => 'Brick',
                 'email' => 'member2@duebat.com',
                 'plainPassword' => 'password',
+                'role' => 'ROLE_USER'
             ],
 
         ];
 
         foreach ($memberTraits as $memberTrait) {
-            $member = new Member();
+            $member = new User();
             $member
-                ->setFirstName($memberTrait['firstName'])
-                ->setLastName($memberTrait['lastName'])
-                ->setNickName($memberTrait['nickName'])
-                ->setPhone($memberTrait['phone'])
+                ->setUsername($memberTrait['userName'])
                 ->setEmail($memberTrait['email'])
                 ->setPlainPassword($memberTrait['plainPassword'])
-                ->setPassword($memberTrait['plainPassword'])
+                ->addRole($memberTrait['role'])
+                ->setEnabled(true);
             ;
 
-            $this->addReference('member_'.$memberTrait['firstName'], $member);
+            $this->addReference('member_'.$memberTrait['userName'], $member);
 
             $manager->persist($member);
         }

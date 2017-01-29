@@ -24,10 +24,10 @@
             {{ event.description }}<br />
         </td>
         <td>
-            {{ event.date|date('Y-m-d') }}<br />
+            {{ event.date|date('m/d/Y') }}<br />
         </td>
         <td>
-            <a class="btn btn-default" href="{{ path('app_admin_event_edit', {'id': event.id}) }}">Edit</a>
+            <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_event_edit', {'id': event.id}) }}">Edit</a>
         </td>
     </tr>
 </table>

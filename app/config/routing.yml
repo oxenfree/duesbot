@@ -6,3 +6,6 @@ app_admin:
     resource: "@AppBundle/Controller/Admin/"
     type:     annotation
     prefix:   /admin
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

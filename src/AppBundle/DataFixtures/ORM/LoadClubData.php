@@ -17,9 +17,9 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $members = [
-            $this->getReference('member_Fritz'),
-            $this->getReference('member_Frantz'),
-            $this->getReference('member_Frank'),
+            $this->getReference('member_Ollie'),
+            $this->getReference('member_Kip'),
+            $this->getReference('member_Brick'),
         ];
 
         $clubTraits = [
@@ -38,7 +38,7 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
                 ->setTreasury($clubTrait['treasury'])
             ;
             foreach ($members as $member)   {
-                $club->addMember($member);
+                $club->addUser($member);
             }
             $this->addReference($clubTrait['name'], $club);
             $manager->persist($club);

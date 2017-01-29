@@ -22,16 +22,33 @@ class EventEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Event Name',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Describe your event',
+                'attr' => [
+                    'class' => 'materialize-textarea',
+                ],
+            ])
             ->add('date', DateType::class, [
-                'widget' => 'choice',
+                'widget' => 'single_text',
+                'label' => 'Date of the event',
+                'attr' => [
+                    'class' => 'datepicker',
+                ],
             ])
             ->add('time', TimeType::class,[
                 'input'  => 'datetime',
-                'widget' => 'choice',])
+                'label' => 'What time?',
+                'widget' => 'single_text',
+            ])
             ->add('votingEnd', DateType::class, [
-                'widget' => 'choice',
+                'widget' => 'single_text',
+                'label' => 'End voting date',
+                'attr' => [
+                    'class' => 'datepicker',
+                ],
             ])
         ;
     }

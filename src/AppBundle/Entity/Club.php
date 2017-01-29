@@ -45,11 +45,11 @@ class Club
     private $treasury;
 
     /**
-     * @var Member[]
+     * @var User[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Member", mappedBy="club", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="club", cascade={"persist"})
      */
-    private $members;
+    private $users;
 
     /**
      * @var Event[]
@@ -57,13 +57,12 @@ class Club
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="club", cascade={"persist"})
      */
     private $events;
-
     /**
      * Club constructor.
      */
     public function __construct()
     {
-        $this->members = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->events = new ArrayCollection();
     }
 
@@ -150,40 +149,40 @@ class Club
     }
 
     /**
-     * Get members
+     * Get users
      *
-     * @return Collection|Member[]
+     * @return Collection|User[]
      */
-    public function getMembers()
+    public function getUsers()
     {
-        return $this->members;
+        return $this->users;
     }
 
     /**
-     * Add member
+     * Add user
      *
-     * @param Member $member
+     * @param User $user
      *
      * @return Club
      */
-    public function addMember(Member $member)
+    public function addUser(User $user)
     {
-        $member->setClub($this);
-        $this->members[] = $member;
+        $user->setClub($this);
+        $this->users[] = $user;
 
         return $this;
     }
 
     /**
-     * Remove member
+     * Remove user
      *
-     * @param Member $member
+     * @param User $user
      *
      * @return Club
      */
-    public function removeMember(Member $member)
+    public function removeUser(User $user)
     {
-        $this->members->removeElement($member);
+        $this->users->removeElement($user);
 
         return $this;
     }

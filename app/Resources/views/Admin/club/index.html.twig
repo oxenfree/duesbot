@@ -25,19 +25,19 @@
                     {{ club.description }}<br />
                 </td>
                 <td>
-                    {{ club.treasury }}<br />
+                    ${{ club.treasury|number_format(2) }}<br />
                 </td>
                 <td>
-                    <a class="btn btn-info" href="{{ path('app_admin_club_show', {'id': club.id}) }}">Show</a>
+                    <a class="btn waves-effect waves-light" href="{{ path('app_admin_club_show', {'id': club.id}) }}">Show</a>
 
-                    <a class="btn btn-primary" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
+                    <a class="btn waves-effect waves-light blue lighten-1" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
 
-                    <a class="btn btn-warning" href="{{ path('app_admin_club_delete', {'id': club.id}) }}">Delete</a>
+                    <a class="btn waves-effect waves-light red lighten-2" href="{{ path('app_admin_club_delete', {'id': club.id}) }}">Delete</a>
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <a class="btn btn-primary" href="{{ path('app_admin_club_create') }}">Create New Club</a>
+    <a class="btn waves-effect waves-light blue lighten-1" href="{{ path('app_admin_club_create') }}">Create New Club</a>
 {% endblock %}
 {% block stylesheets %}
 {% endblock %}

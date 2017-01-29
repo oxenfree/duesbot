@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,20 +38,15 @@ class Event
     private $description;
 
     /**
-     * @var int
+     * @var UserVote[]
      *
-     * @ORM\Column(name="score", type="integer", nullable=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserVote", mappedBy="event")
      */
-    private $score;
+    private $userVotes;
 
     /**
-     * @var int
+     * Date of the event.
      *
-     * @ORM\Column(name="totalVotes", type="integer", nullable=true)
-     */
-    private $totalVotes;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -57,6 +54,8 @@ class Event
     private $date;
 
     /**
+     * Time of the event.
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="time", type="datetime")
@@ -66,14 +65,14 @@ class Event
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="votingStart", type="datetime")
+     * @ORM\Column(name="voting_start", type="datetime")
      */
     private $votingStart;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="votingEnd", type="datetime")
+     * @ORM\Column(name="voting_end", type="datetime")
      */
     private $votingEnd;
 
@@ -83,6 +82,32 @@ class Event
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Club", inversedBy="events")
      */
     private $club;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="vote_total", type="integer", nullable=true)
+     */
+    private $voteTotal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string")
+     */
+    private $status;
+
+    /**
+     * Event constructor.
+     */
+    public function __construct()
+    {
+        $this->userVotes = new ArrayCollection();
+        if (!isset($this->voteTotal))   {
+            $this->voteTotal = 1;
+        }
+    }
+
 
     /**
      * Get id
@@ -140,54 +165,6 @@ class Event
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set score
-     *
-     * @param integer $score
-     *
-     * @return Event
-     */
-    public function setScore($score = null)
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return int
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
-
-    /**
-     * Set totalVotes
-     *
-     * @param integer $totalVotes
-     *
-     * @return Event
-     */
-    public function setTotalVotes($totalVotes = null)
-    {
-        $this->totalVotes = $totalVotes;
-
-        return $this;
-    }
-
-    /**
-     * Get totalVotes
-     *
-     * @return int
-     */
-    public function getTotalVotes()
-    {
-        return $this->totalVotes;
     }
 
     /**
@@ -305,4 +282,87 @@ class Event
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return Event
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserVote[]
+     */
+    public function getUserVotes()
+    {
+        return $this->userVotes;
+    }
+
+    /**
+     * @param UserVote $userVote
+     *
+     * @return Event
+     */
+    public function addUserVote(UserVote $userVote)
+    {
+        if (true == $userVote->getVoteYes())    {
+            ++$this->voteTotal;
+        } else {
+            $this->voteTotal--;
+        }
+        $userVote->setEvent($this);
+
+        $this->userVotes[$userVote->getUser()->getUsername()] = $userVote;
+
+        return $this;
+
+    }
+
+    /**
+     * @param UserVote $userVote
+     *
+     * @return Event
+     */
+    public function removeUserVote(UserVote $userVote)
+    {
+        $userVote->setEvent(null);
+        $this->userVotes->removeElement($userVote);
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVoteTotal()
+    {
+        return $this->voteTotal;
+    }
+
+    /**
+     * @param int $voteTotal
+     *
+     * @return Event
+     */
+    public function setVoteTotal($voteTotal)
+    {
+        $this->voteTotal = $voteTotal;
+
+        return $this;
+    }
+
+
 }

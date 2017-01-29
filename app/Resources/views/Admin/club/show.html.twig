@@ -24,10 +24,10 @@
             {{ club.description }}<br />
         </td>
         <td>
-            {{ club.treasury }}<br />
+            ${{ club.treasury|number_format(2) }}<br />
         </td>
         <td>
-            <a class="btn btn-default" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
+            <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_club_edit', {'id': club.id}) }}">Edit</a>
         </td>
     </tr>
 </table>

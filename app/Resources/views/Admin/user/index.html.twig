@@ -1,0 +1,35 @@
+{% extends 'Admin/base.html.twig' %}
+{% set page_title="Members" %}
+{% block body %}
+    <table class="table">
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>
+                    {{ user.userName }}<br />
+                </td>
+                <td>
+                    {{ user.email }}<br />
+                </td>
+                <td>
+                    <a class="btn waves-effect waves-lighten" href="{{ path('app_admin_user_show', {'id': user.id}) }}">Show</a>
+                    <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+                    <a class="btn waves-effect waves-lighten red lighten-2" href="{{ path('app_admin_user_delete', {'id': user.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_user_create') }}">Create New Member</a>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}

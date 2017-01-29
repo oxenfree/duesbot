@@ -2,16 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: ollie
- * Date: 1/22/17
- * Time: 5:56 AM
+ * Date: 1/26/17
+ * Time: 8:19 PM
  */
 
 namespace AppBundle\Form;
 
-
-use AppBundle\Entity\Member;
-
+use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,18 +21,20 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class MemberEditType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ->add('nickName', TextType::class, [
-                'required' => false,
-            ])
-            ->add('phone', TextType::class)
+            ->add('userName', TextType::class)
             ->add('email', TextType::class)
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Member' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                ],
+                'multiple' => true,
+            ])
         ;
 
         /*
@@ -60,6 +62,7 @@ class MemberEditType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => Member::class]);
+        $resolver->setDefaults(['data_class' => User::class]);
     }
+
 }
