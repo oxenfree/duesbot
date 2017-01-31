@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\EventStatus;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,13 +51,17 @@ class EventController extends Controller
     public function createAction(Request $request)
     {
         $event = new Event();
-        $bcEast = $this->getDoctrine()->getRepository(Club::class)->find(1);
+        $bcEast = $this->getDoctrine()->getRepository(Club::class)->findOneBy(['name' => 'Bat Country East']);
         $form = $this->createForm(EventEditType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
+            $status = (new EventStatus())
+                ->setValue(EventStatus::VOTING_OPEN);
+            $event->setStatus($status);
             $event->setClub($bcEast);
             $event->setVotingStart(new \DateTime('now'));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();

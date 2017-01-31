@@ -97,8 +97,8 @@ class LoadUserVoteData extends AbstractFixture implements OrderedFixtureInterfac
             }
             $manager->persist($userVote);
         }
-        $manager->flush();
 
+        $manager->flush();
     }
 
     /**
