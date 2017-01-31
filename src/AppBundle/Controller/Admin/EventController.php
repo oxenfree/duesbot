@@ -60,6 +60,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+            $this->addFlash('success', 'Event created!');
 
             return $this->redirectToRoute('app_admin_event_show', ['id' => $event->getId()]);
         }
@@ -107,6 +108,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+            $this->addFlash('success', 'Event edited!');
 
             return $this->redirectToRoute('app_admin_event_list_all');
         }
@@ -131,6 +133,8 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($club);
         $em->flush();
+        $this->addFlash('success', 'Event deleted!');
+
 
         return $this->redirectToRoute('app_admin_event_list_all');
     }

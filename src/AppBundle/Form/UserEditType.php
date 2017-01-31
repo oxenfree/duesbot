@@ -26,8 +26,16 @@ class UserEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userName', TextType::class)
-            ->add('email', TextType::class)
+            ->add('userName', TextType::class, [
+                'attr' => [
+                    'class' => 'materialize-textarea',
+                ],
+            ])
+            ->add('email', TextType::class, [
+                'attr' => [
+                    'class' => 'materialize-textarea',
+                ],
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Member' => 'ROLE_USER',

@@ -1,7 +1,7 @@
 {% extends 'Admin/base.html.twig' %}
 {% set page_title="Events" %}
 {% block body %}
-    <table class="table">
+    <table class="table highlight">
         <tr>
             <th>
                 Event Name
@@ -19,10 +19,10 @@
         {% for event in events %}
             <tr>
                 <td>
-                    {{ event.name }}<br />
+                    {{ event.name[:20] ~ '...' }}<br />
                 </td>
                 <td>
-                    {{ event.description }}<br />
+                    {{ event.description[:20] ~ '...' }}<br />
                 </td>
                 <td>
                     {{ event.date|date('m/d/Y') }}<br />
@@ -37,6 +37,7 @@
             </tr>
         {% endfor %}
     </table>
+    <br />
     <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_event_create') }}">Create New Event</a>
 {% endblock %}
 {% block stylesheets %}

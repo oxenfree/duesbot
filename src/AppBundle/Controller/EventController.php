@@ -79,8 +79,7 @@ class EventController extends Controller
         $em->persist($userVote);
         $event->addUserVote($userVote);
         $em->flush();
-
-        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('success', 'Thanks for voting!');
 
         return $this->redirectToRoute('app_index');
 
@@ -106,9 +105,7 @@ class EventController extends Controller
         $em->persist($userVote);
         $event->addUserVote($userVote);
         $em->flush();
-
-        $this->getDoctrine()->getManager()->flush();
-
+        $this->addFlash('success', 'Thanks for voting!');
         return $this->redirectToRoute('app_index');
 
     }
@@ -136,6 +133,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+            $this->addFlash('success', 'Your event was created!');
 
             return $this->redirectToRoute('app_index');
         }

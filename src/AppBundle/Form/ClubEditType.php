@@ -22,7 +22,11 @@ class ClubEditType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'materialize-textarea',
+                ],
+            ])
             ->add('treasury', NumberType::class, [
                 'required' => false,
             ])

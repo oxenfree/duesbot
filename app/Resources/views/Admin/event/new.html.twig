@@ -1,6 +1,12 @@
 {% extends 'Admin/base.html.twig' %}
 {% block body %}
 {{ form_start(form) }}
+    <div class="input-field">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="input-field">
+        {{ form_row(form.description) }}
+    </div>
     {{ form_widget(form) }}
     <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button><br />
     <a href="{{ path('app_admin_event_list_all') }}">Back to the list</a>
@@ -8,4 +14,13 @@
 {% endblock %}
 {% block stylesheets %}
 {% endblock %}
-
+{% block javascripts %}
+    <script>
+        $('.datepicker').pickadate({
+            min: new Date(),
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 3, // Creates a dropdown of 15 years to control year
+            format: 'yyyy-mm-dd'
+        });
+    </script>
+{% endblock %}

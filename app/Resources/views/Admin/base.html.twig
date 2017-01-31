@@ -21,12 +21,12 @@
         <div class="container">
             <nav>
                 <div class="nav-wrapper teal lighten-2">
-                    <a href="{{ path('app_index') }}" class="brand-logo">Duebat Home</a>
+                    <a href="{{ path('app_index') }}" class="brand-logo">{ duebat home }</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="{{ path('app_admin_index') }}">Admin Home</a></li>
-                        <li><a href="{{ path('app_admin_user_list_all') }}">Members</a></li>
-                        <li><a href="{{ path('app_admin_club_list_all') }}">Clubs</a></li>
-                        <li><a href="{{ path('app_admin_event_list_all') }}">Events</a></li>
+                        <li><a href="{{ path('app_admin_index') }}">admin Home</a></li>
+                        <li><a href="{{ path('app_admin_user_list_all') }}">members</a></li>
+                        <li><a href="{{ path('app_admin_club_list_all') }}">clubs</a></li>
+                        <li><a href="{{ path('app_admin_event_list_all') }}">events</a></li>
                     </ul>
                 </div>
             </nav>
@@ -38,6 +38,12 @@
             $(document).ready(function() {
                 $('select').material_select();
             });
+
+            {% for flash_message in app.session.flashBag.get('success') %}
+            $(document).ready(function () {
+                Materialize.toast('{{ flash_message }}', 3500, 'teal accent-4')
+            });
+            {% endfor %}
         </script>
     {% endblock %}
 </html>

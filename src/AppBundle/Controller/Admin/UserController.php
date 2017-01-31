@@ -58,6 +58,7 @@ class UserController extends Controller
             $user->setClub($bcEast);
             $um = $this->get('fos_user.user_manager');
             $um->updateUser($user);
+            $this->addFlash('success', 'Member created!');
 
             return $this->redirectToRoute('app_admin_user_list_all');
         }
@@ -98,6 +99,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid())   {
             $um = $this->get('fos_user.user_manager');
             $um->updateUser($user);
+            $this->addFlash('success', 'Member edited!');
 
             return $this->redirectToRoute('app_admin_user_list_all');
         }
@@ -119,6 +121,7 @@ class UserController extends Controller
     {
         $um = $this->get('fos_user.user_manager');
         $um->deleteUser($user);
+        $this->addFlash('success', 'Member deleted!');
 
         return $this->redirectToRoute('app_admin_user_list_all');
     }

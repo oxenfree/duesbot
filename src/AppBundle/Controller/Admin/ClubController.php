@@ -56,6 +56,7 @@ class ClubController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
+            $this->addFlash('success', 'Club created!');
 
             return $this->redirectToRoute('app_admin_club_show', ['id' => $club->getId()]);
         }
@@ -103,6 +104,7 @@ class ClubController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
+            $this->addFlash('success', 'Club edited!');
 
             return $this->redirectToRoute('app_admin_club_list_all');
         }
@@ -127,6 +129,7 @@ class ClubController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($club);
         $em->flush();
+        $this->addFlash('success', 'Club deleted!');
 
         return $this->redirectToRoute('app_admin_club_list_all');
     }
