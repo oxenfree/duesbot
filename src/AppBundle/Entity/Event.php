@@ -40,7 +40,7 @@ class Event
     /**
      * @var UserVote[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserVote", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserVote", mappedBy="event", cascade={"remove"})
      */
     private $userVotes;
 
@@ -91,9 +91,10 @@ class Event
     private $voteTotal;
 
     /**
-     * @var string
+     * @var EventStatus
      *
-     * @ORM\Column(name="status", type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EventStatus", cascade={"persist"})
+     * @ORM\JoinColumn(name="event_status_id")
      */
     private $status;
 
@@ -284,7 +285,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return EventStatus
      */
     public function getStatus()
     {
@@ -292,11 +293,11 @@ class Event
     }
 
     /**
-     * @param string $status
+     * @param EventStatus $status
      *
      * @return Event
      */
-    public function setStatus($status)
+    public function setStatus(EventStatus $status)
     {
         $this->status = $status;
 

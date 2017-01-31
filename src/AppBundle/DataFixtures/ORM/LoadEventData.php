@@ -37,7 +37,6 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
-                'status' => 'This is happening!'
             ],
             [
                 'name' => 'New Years Eve 2017',
@@ -46,7 +45,6 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
-                'status' => 'Voting open.'
             ],
             [
                 'name' => 'Fly in a friend',
@@ -55,7 +53,6 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
-                'status' => 'Voting closed. Not the top scorer.'
             ],
         ];
 
@@ -67,7 +64,6 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 ->setDate($eventTrait['date'])
                 ->setVotingStart($eventTrait['voting start'])
                 ->setClub($club)
-                ->setStatus($eventTrait['status'])
             ;
             $event
                 ->setTime($event->getDate()->setTime(14, 55))

@@ -13,6 +13,12 @@
             Date
         </th>
         <th>
+            Voting started
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
             Edit
         </th>
     </tr>
@@ -21,10 +27,16 @@
             {{ event.name }}<br />
         </td>
         <td>
-            {{ event.description }}<br />
+            {{ event.description[:40] ~ '...' }}<br />
         </td>
         <td>
             {{ event.date|date('m/d/Y') }}<br />
+        </td>
+        <td>
+            {{ event.votingStart|date('m/d/Y') }}<br />
+        </td>
+        <td>
+            {{ event.status }}<br />
         </td>
         <td>
             <a class="btn waves-effect waves-lighten blue lighten-1" href="{{ path('app_admin_event_edit', {'id': event.id}) }}">Edit</a>

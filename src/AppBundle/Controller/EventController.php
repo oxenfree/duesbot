@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Entity\EventStatus;
 use AppBundle\Entity\UserVote;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -127,9 +128,11 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
+            $status = (new EventStatus())
+                ->setValue(EventStatus::VOTING_OPEN);
             $event->setVotingStart(new \DateTime('now'));
             $event->setClub($club);
-            $event->setStatus('Voting open.');
+            $event->setStatus($status);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
