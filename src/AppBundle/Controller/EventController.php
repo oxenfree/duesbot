@@ -49,6 +49,12 @@ class EventController extends Controller
             }
         }
 
+        $status = $event->getStatus();
+        if ($status->getValue() == EventStatus::VOTING_CLOSED)  {
+            $voteYes = true;
+            $voteNo = true;
+        }
+
         $voteTotal = $event->getVoteTotal();
 
         return $this->render('/event/show.html.twig', [
@@ -56,7 +62,7 @@ class EventController extends Controller
             'userVotes' => $userVotes,
             'voteTotal' => $voteTotal,
             'voteYes' => $voteYes,
-            'voteNo' => $voteNo
+            'voteNo' => $voteNo,
         ]);
     }
 

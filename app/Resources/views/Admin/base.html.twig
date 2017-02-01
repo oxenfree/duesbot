@@ -18,9 +18,9 @@
         </style>
     </head>
     <body>
+        {% include ':partial:header.html.twig' %}
         <div class="container">
-            {% include ':partial:header.html.twig' %}
-                {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
         </div>
     </body>
     {% block javascripts %}

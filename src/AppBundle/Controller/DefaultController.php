@@ -33,6 +33,7 @@ class DefaultController extends Controller
             unset($template);
             $template = 'default/index_logged_in.html.twig';
             $currentUser = $this->getUser();
+            // set club to bat country
             $bcEast = $this
                 ->getDoctrine()
                 ->getRepository(Club::class)
