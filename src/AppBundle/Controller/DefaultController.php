@@ -33,7 +33,15 @@ class DefaultController extends Controller
             unset($template);
             $template = 'default/index_logged_in.html.twig';
             $currentUser = $this->getUser();
+            $bcEast = $this
+                ->getDoctrine()
+                ->getRepository(Club::class)
+                ->findOneBy(['name' => 'Bat Country East']);
             $club = $currentUser->getClub();
+            if(!isset($club))  {
+                $currentUser->setClub($bcEast);
+                $club = $bcEast;
+            };
             $renderParams = [
                 'user' => $currentUser,
                 'club' => $club,

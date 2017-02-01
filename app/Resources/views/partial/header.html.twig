@@ -1,0 +1,16 @@
+<nav>
+    <div class="nav-wrapper teal lighten-2">
+        <a href="{{ path('app_index') }}" class="brand-logo"> { duebat }</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li>{{ app.user.username }}</li><li><i class="small material-icons">perm_identity</i></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_admin_index') }}">admin</a></li>
+                {% endif %}
+                <li><a href="/logout">logout</a></li>
+            {% else %}
+                <li class="grey lighten-3"><a href="/register" class="orange-text lighten-5">register</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

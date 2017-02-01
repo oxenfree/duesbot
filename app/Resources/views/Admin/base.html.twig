@@ -19,17 +19,7 @@
     </head>
     <body>
         <div class="container">
-            <nav>
-                <div class="nav-wrapper teal lighten-2">
-                    <a href="{{ path('app_index') }}" class="brand-logo">{ duebat home }</a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="{{ path('app_admin_index') }}">admin Home</a></li>
-                        <li><a href="{{ path('app_admin_user_list_all') }}">members</a></li>
-                        <li><a href="{{ path('app_admin_club_list_all') }}">clubs</a></li>
-                        <li><a href="{{ path('app_admin_event_list_all') }}">events</a></li>
-                    </ul>
-                </div>
-            </nav>
+            {% include ':partial:header.html.twig' %}
                 {% block body %}{% endblock %}
         </div>
     </body>

@@ -1,0 +1,30 @@
+<h5>register</h5>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+<div class="input-field">
+    {{ form_widget(form.email, { 'attr': {'class': 'form-control',} }) }}
+    {{ form_errors(form.email) }}
+    <label for="fos_user_registration_form[email]">email</label>
+</div>
+<div class="input-field">
+    {{ form_widget(form.username, { 'attr': {'class': 'form-control',} }) }}
+    {{ form_errors(form.username) }}
+    <label for="fos_user_registration_form[username]">username</label>
+</div>
+<div class="input-field">
+    {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control',} }) }}
+    {{ form_errors(form.plainPassword.first) }}
+    <label for="fos_user_registration_form[plainPassword][first]">password</label>
+</div>
+<div class="input-field">
+    {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control',} }) }}
+    {{ form_errors(form.plainPassword.second) }}
+    <label for="fos_user_registration_form[plainPassword][second]">repeat password</label>
+</div>
+{{ form_rest(form) }}
+<div>
+    <button class="btn waves-effect waves-light orange" type="submit" value="">
+        submit
+        <i class='material-icons right'>send</i>
+    </button>
+</div>
+{{ form_end(form) }}

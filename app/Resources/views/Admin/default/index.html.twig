@@ -2,29 +2,22 @@
 {% set page_title="Welcome" %}
 {% block body %}
     <div class="row">
-
         <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ users|length }} users. <br />
-                  <a href="{{ path('app_admin_user_list_all') }}">Member Admin Page</a>
-              </span>
+            <div class="card-panel grey lighten-3">
+              There are {{ users|length }} users. <br />
+              <a href="{{ path('app_admin_user_list_all') }}">Member Admin Page</a>
             </div>
         </div>
         <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ clubs|length }} clubs.<br />
-                  <a href="{{ path('app_admin_club_list_all') }}">Club Admin Page</a>
-              </span>
+            <div class="card-panel grey lighten-3">
+              There are {{ clubs|length }} clubs.<br />
+              <a href="{{ path('app_admin_club_list_all') }}">Club Admin Page</a>
             </div>
         </div>
         <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ events|length }} events.<br />
-                  <a href="{{ path('app_admin_event_list_all') }}">Event Admin Page</a>
-              </span>
+            <div class="card-panel grey lighten-3">
+              There are {{ events|length }} events.<br />
+              <a href="{{ path('app_admin_event_list_all') }}">Event Admin Page</a>
             </div>
         </div>
 

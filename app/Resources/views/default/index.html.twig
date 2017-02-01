@@ -2,35 +2,28 @@
 {% set page_title="Welcome" %}
 {% block body %}
     <div class="row">
-
         <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ allUsers|length }} users. <br />
-                  <a href="{{ path('app_admin_user_list_all') }}">Member Admin Page</a>
-              </span>
+            <div class="card-panel grey lighten-3">
+              <span class="card-title"><h5>login</h5></span>
+              {% include 'partial/login.html.twig' %}
             </div>
         </div>
-        <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ allClubs|length }} clubs.<br />
-                  <a href="{{ path('app_admin_club_list_all') }}">Club Admin Page</a>
-              </span>
+        <div class="col s8">
+            <div class="section">
+                <span class="card-title"><h5>Working together</h5></span>
+                <p>
+                    Collect dues for your club with { duebat }. In a few months, when your event rolls around,
+                    you won't have to pass around the hat to cover expenses --you'll have already paid together.
+                </p>
+                <p>
+                  If you can afford ten dollars per month. And your friends can afford ten dollars per month.
+                  You can all put that money together for tickets to Las Vegas, a theme camp, an event hall,
+                  a trebuchet to lay siege to your enemies, or to stock the bar at the big party.
+                </p>
             </div>
         </div>
-        <div class="col s4">
-            <div class="card-panel blue-grey darken-1">
-              <span class="white-text">
-                  There are {{ allEvents|length }} events.<br />
-                  <a href="{{ path('app_admin_event_list_all') }}">Event Admin Page</a>
-              </span>
-            </div>
-        </div>
-
     </div>
 {% endblock %}
-
 {% block stylesheets %}
     <style>
     </style>
