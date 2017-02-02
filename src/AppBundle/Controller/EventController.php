@@ -10,12 +10,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
 use AppBundle\Entity\EventStatus;
-use AppBundle\Entity\UserVote;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,6 +42,8 @@ class EventController extends Controller
         $voteYes = null;
         $voteNo = null;
 
+        // sets variables used on the front end
+        // to disable voting buttons
         foreach ($userVotes as $key => $userVote) {
             if ($this->getUser()->getUsername() == $userVote->getUser()->getUsername()) {
                 $voteYes = $userVote->getVoteYes() ? true : false;
@@ -50,6 +52,10 @@ class EventController extends Controller
         }
 
         $status = $event->getStatus();
+
+        // this is a tricky one. if voting is closed both votes are set to true
+        // so that each vote button will be disabled --just leveraging existing logic
+        // on the front end
         if ($status->getValue() == EventStatus::VOTING_CLOSED)  {
             $voteYes = true;
             $voteNo = true;
@@ -61,8 +67,8 @@ class EventController extends Controller
             'event' => $event,
             'userVotes' => $userVotes,
             'voteTotal' => $voteTotal,
-            'voteYes' => $voteYes,
-            'voteNo' => $voteNo,
+            'voteYes' => $voteYes, // voting button variable
+            'voteNo' => $voteNo, // voting button variable
         ]);
     }
 
@@ -75,21 +81,28 @@ class EventController extends Controller
      */
     public function voteYes($id)
     {
-        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
-
-        $user = $this->getUser();
-        $userVote = new UserVote();
-        $userVote->setUser($user)
-            ->setVoteYes(true);
+        $event = $this
+            ->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($id)
         ;
+        $user = $this->getUser();
+
+        $userVote = $this
+            ->get('event_manager')
+            ->vote($user, $event, true)
+        ;
+
+        if (null == $userVote)  {
+            throw new Exception('Uservote is null.');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($userVote);
-        $event->addUserVote($userVote);
         $em->flush();
         $this->addFlash('success', 'Thanks for voting!');
 
         return $this->redirectToRoute('app_index');
-
     }
 
     /**
@@ -101,20 +114,27 @@ class EventController extends Controller
      */
     public function voteNo($id)
     {
-        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
-
-        $user = $this->getUser();
-        $userVote = new UserVote();
-        $userVote->setUser($user)
-            ->setVoteYes(false);
+        $event = $this
+            ->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($id)
         ;
+        $user = $this->getUser();
+        $userVote = $this
+            ->get('event_manager')
+            ->vote($user, $event, false)
+        ;
+
+        if (null == $userVote)  {
+            throw new Exception('Uservote is null.');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($userVote);
-        $event->addUserVote($userVote);
         $em->flush();
         $this->addFlash('success', 'Thanks for voting!');
-        return $this->redirectToRoute('app_index');
 
+        return $this->redirectToRoute('app_index');
     }
 
     /**
@@ -134,11 +154,11 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
-            $status = (new EventStatus())
-                ->setValue(EventStatus::VOTING_OPEN);
-            $event->setVotingStart(new \DateTime('now'));
-            $event->setClub($club);
-            $event->setStatus($status);
+            $this
+                ->get('event_manager')
+                ->fillEvent($event, $club)
+            ;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -146,7 +166,6 @@ class EventController extends Controller
 
             return $this->redirectToRoute('app_index');
         }
-
 
         return $this->render('/event/new.html.twig', [
             'form' => $form->createView(),
