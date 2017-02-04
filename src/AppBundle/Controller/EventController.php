@@ -16,6 +16,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,6 +38,7 @@ class EventController extends Controller
      */
     public function showEvent($id)
     {
+        $user = $this->getUser();
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
         $userVotes = $event->getUserVotes();
         $voteYes = null;
@@ -64,6 +66,7 @@ class EventController extends Controller
         $voteTotal = $event->getVoteTotal();
 
         return $this->render('/event/show.html.twig', [
+            'user' => $user,
             'event' => $event,
             'userVotes' => $userVotes,
             'voteTotal' => $voteTotal,
@@ -158,6 +161,7 @@ class EventController extends Controller
                 ->get('event_manager')
                 ->fillEvent($event, $club)
             ;
+            $event->setOwner($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -170,5 +174,61 @@ class EventController extends Controller
         return $this->render('/event/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="app_event_edit")
+     * @Method({"GET", "POST"})
+     *
+     * @param Request   $request
+     * @param int       $id
+     *
+     * @return Response
+     */
+    public function editAction(Request $request, $id)
+    {
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
+        if ($this->getUser() != $event->getOwner()) {
+            throw new NotFoundHttpException('You can\'t edit this page.');
+        }
+
+        $form = $this->createForm(EventEditType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())   {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+            $this->addFlash('success', 'Event edited!');
+
+            return $this->redirectToRoute('app_index');
+        }
+
+        return $this->render('/event/edit.html.twig', [
+            'form' => $form->createView(),
+            'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="app_event_delete")
+     * @Method({"GET", "POST"})
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function deleteAction($id)
+    {
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
+        if ($this->getUser() != $event->getOwner()) {
+            throw new NotFoundHttpException('You can\'t delete this page.');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+        $this->addFlash('success', 'Event deleted!');
+
+        return $this->redirectToRoute('app_index');
     }
 }

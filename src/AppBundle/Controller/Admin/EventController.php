@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Event;
-use AppBundle\Entity\EventStatus;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,11 +55,10 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
-            $status = (new EventStatus())
-                ->setValue(EventStatus::VOTING_OPEN);
-            $event->setStatus($status);
-            $event->setClub($bcEast);
-            $event->setVotingStart(new \DateTime('now'));
+            $this
+                ->get('event_manager')
+                ->fillEvent($event, $bcEast)
+            ;
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -134,9 +132,9 @@ class EventController extends Controller
      */
     public function deleteAction($id)
     {
-        $club = $this->getDoctrine()->getRepository(Event::class)->find($id);
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        $em->remove($club);
+        $em->remove($event);
         $em->flush();
         $this->addFlash('success', 'Event deleted!');
 
