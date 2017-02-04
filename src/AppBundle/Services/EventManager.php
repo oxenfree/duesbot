@@ -35,7 +35,7 @@ class EventManager
             foreach ($userVotes as $userVote) {
                 $vote = $userVote->getUser()->getUsername() == $user->getUsername()
                     ? $userVote
-                    : null
+                    : new UserVote()
                 ;
             }
         }

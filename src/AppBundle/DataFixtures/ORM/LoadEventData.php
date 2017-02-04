@@ -28,6 +28,9 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
             bibendum consequat augue. Pellentesque iaculis, purus vel tristique interdum, orci lacus faucibus tellus, 
             vel faucibus sem risus non tellus. Nullam eget convallis risus, a dictum justo."
         ;
+        $kip = $this->getReference('member_Kip');
+        $me = $this->getReference('member_Ollie');
+        $brick = $this->getReference('member_Brick');
 
         $eventTraits = [
             [
@@ -37,6 +40,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
+                'owner' => $me,
             ],
             [
                 'name' => 'New Years Eve 2017',
@@ -45,14 +49,16 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
+                'owner' => $kip,
             ],
             [
                 'name' => 'Fly in a friend',
-                'description' => $description.'\n'.$description,
+                'description' => $description.'<br /><br />'.$description,
                 'score' => 16,
                 'total votes' => null,
                 'date' => new \DateTime(),
                 'voting start' => new \DateTime('now'),
+                'owner' => $brick,
             ],
         ];
 
@@ -64,6 +70,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 ->setDate($eventTrait['date'])
                 ->setVotingStart($eventTrait['voting start'])
                 ->setClub($club)
+                ->setOwner($eventTrait['owner'])
             ;
             $event
                 ->setTime($event->getDate()->setTime(14, 55))

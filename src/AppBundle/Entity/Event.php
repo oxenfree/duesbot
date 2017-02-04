@@ -38,6 +38,13 @@ class Event
     private $description;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="events")
+     */
+    private $owner;
+
+    /**
      * @var UserVote[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserVote", mappedBy="event", cascade={"remove"})
@@ -365,5 +372,23 @@ class Event
         return $this;
     }
 
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 
+    /**
+     * @param User $owner
+     *
+     * @return Event
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
 }
