@@ -38,7 +38,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'description' => $description,
                 'score' => 10,
                 'total votes' => null,
-                'date' => new \DateTime(),
+                'date' => new \DateTime('2017-10-31'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $me,
             ],
@@ -47,7 +47,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'description' => 'Lorem Ipsum Etcetera Etcetera. This is a short description.',
                 'score' => 7,
                 'total votes' => null,
-                'date' => new \DateTime(),
+                'date' => new \DateTime('2017-12-31'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $kip,
             ],
@@ -56,7 +56,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'description' => $description.'<br /><br />'.$description,
                 'score' => 16,
                 'total votes' => null,
-                'date' => new \DateTime(),
+                'date' => new \DateTime('2017-11-15'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $brick,
             ],
@@ -74,8 +74,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
             ;
             $event
                 ->setTime($event->getDate()->setTime(14, 55))
-                ->setVotingEnd($event->getDate()->add(new \DateInterval('P30D')))
-                ->setDate($event->getDate()->setDate(2017, 11, 15))
+                ->setVotingEnd($event->getDate()->modify('-1 week'))
             ;
 
             $this->addReference($eventTrait['name'], $event);

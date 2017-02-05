@@ -43,13 +43,6 @@ class EventEditType extends AbstractType
                 'label' => 'What time?',
                 'widget' => 'single_text',
             ])
-            ->add('votingEnd', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'End voting date',
-                'attr' => [
-                    'class' => 'datepicker',
-                ],
-            ])
         ;
     }
 

@@ -14,6 +14,7 @@ use AppBundle\Entity\EventStatus;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserVote;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Validator\Constraints\Date;
 
 class EventManager
 {
@@ -54,8 +55,21 @@ class EventManager
         $status = (new EventStatus())
             ->setValue(EventStatus::VOTING_OPEN)
         ;
-        $event->setVotingStart(new \DateTime('now'));
-        $event->setClub($club);
-        $event->setStatus($status);
+        $votingEnd = $this->setVotingEndDate($event);
+
+        $event
+            ->setVotingStart(new \DateTime('now'))
+            ->setClub($club)
+            ->setStatus($status)
+            ->setVotingEnd($votingEnd)
+        ;
+    }
+
+    public function setVotingEndDate(Event $event)
+    {
+        $votingEnd = new \DateTime($event->getDate()->format('Y-m-d'));
+        $votingEnd->modify('-1 week');
+
+        return $votingEnd;
     }
 }

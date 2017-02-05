@@ -60,6 +60,9 @@
                                 Score
                             </th>
                             <th>
+                                Voting ends
+                            </th>
+                            <th>
                                 Coordinator
                             </th>
                             <th>
@@ -81,6 +84,9 @@
                                 </td>
                                 <td>
                                     {{ event.voteTotal }}
+                                </td>
+                                <td>
+                                    {{ event.votingEnd|date('M/d/Y') }}
                                 </td>
                                 <td>
                                     {{ event.owner.userName }}
