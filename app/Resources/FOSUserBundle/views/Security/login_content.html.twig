@@ -7,12 +7,12 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
     <div class="input-field">
-        <label for="username">username</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+        <label for="username">username</label>
     </div>
     <div class="input-field">
-    <label for="password">password</label>
     <input type="password" id="password" name="_password" required="required" />
+    <label for="password">password</label>
     </div>
     <div>
         <button class="btn waves-effect waves-light orange" type="submit" value="">
