@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h5>Checkout</h5>
+    <p>
+        Hi {{ user.userName }},<br />
+        You're agreeing to pay ${{ due.amountPerMonth }} / month to {{ club.name }}.<br />
+        Your dues will be pooled with all the other members of your club, and you'll be able to:
+    </p>
+    <ul class="browser-default">
+        <li>Create new events</li>
+        <li>Edit your events</li>
+        <li>Vote on all of the events for {{ club.name }}</li>
+        <li>Check your club's treasury</li>
+    </ul>
+    {% if error %}
+        <div class="red-text">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form action="" method="POST">
+        <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{ stripe_public_key }}"
+                data-amount="{{ due.amountPerMonth * 100 }}"
+                data-name="duebat"
+                data-description="Widget"
+                data-zip-code="true"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+        </script>
+    </form>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+

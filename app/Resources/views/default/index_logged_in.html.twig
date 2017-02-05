@@ -5,65 +5,104 @@
     <div class="section col s12">
         <h5>{{ user.userName }},</h5>
         <p>
-            Your club, {{ club.name }}, has a treasury of: <strong>${{ club.treasury|number_format(2) }}</strong>
+            Your club, {{ club.name }}, has:
         </p>
-        {% if events %}
-            And you have events.
-            <table class="highlight">
-                <thead>
-                <tr>
-                    <th>
-                        Event
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Score
-                    </th>
-                    <th>
-                        Coordinator
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-                </thead>
-            {% for event in events %}
-                <tbody>
-                <tr>
-                    <td>
-                        {{ event.name }}
-                    </td>
-                    <td>
-                        {{ event.date|date('M/d/Y') }}
-                    </td>
-                    <td>
-                        {{ event.status }}
-                    </td>
-                    <td>
-                        {{ event.voteTotal }}
-                    </td>
-                    <td>
-                        {{ event.owner.userName }}
-                    </td>
-                    <td>
-                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Show</a>
-                        {% if user == event.owner %}
-                            <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1">Edit</a>
-                            <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="btn waves-effect waves-light orange accent-2">Delete</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                </tbody>
-            {% endfor %}
-            </table>
+        <table class="bordered">
+            <tr>
+                <th>
+                    Treasury:
+                </th>
+                <td>
+                    ${{ available|number_format(2) }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Pending Treasury:
+                </th>
+                <td>
+                    ${{ pending|number_format(2) }} <sup>1</sup>
+                </td>
+            </tr>
+            {% if dues is null or dues.isCheckedOut == false %}
+            <tr>
+                <th>
+                    Event{{ events|length > 0 ? 's' }}:
+                </th>
+                <td>
+                    {{ events|length }}
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+        {% if dues is null or dues.isCheckedOut == false %}
+        <p>
+            Once you've <a href="{{ path('app_due_create') }}">paid dues</a>, you'll be able to create and vote on events.
+        </p>
+        <p>
+            <a href="{{ path('app_due_create') }}" class="btn waves-effect waves-light blue lighten-1">Pay dues</a>
+        </p>
+            {% else %}
+                {% if events %}
+                    <table class="highlight">
+                        <thead>
+                        <tr>
+                            <th>
+                                Event
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Score
+                            </th>
+                            <th>
+                                Coordinator
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                        </thead>
+                        {% for event in events %}
+                            <tbody>
+                            <tr>
+                                <td>
+                                    {{ event.name[:25] ~ ' ...'  }}
+                                </td>
+                                <td>
+                                    {{ event.date|date('M/d/Y') }}
+                                </td>
+                                <td>
+                                    {{ event.status }}
+                                </td>
+                                <td>
+                                    {{ event.voteTotal }}
+                                </td>
+                                <td>
+                                    {{ event.owner.userName }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Show</a>
+                                    {% if user == event.owner %}
+                                        <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1">Edit</a>
+                                        <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="btn waves-effect waves-light orange accent-2">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+                <br />
+                <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
         {% endif %}
-        <br />
-        <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
+        <p>
+            <sup><sup>1</sup>Charges may take around a week to clear and show in the balance.</sup>
+        </p>
     </div>
 </div>
 {% endblock %}

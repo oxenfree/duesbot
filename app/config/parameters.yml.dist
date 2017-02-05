@@ -17,3 +17,5 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    stripe_secret_key: sk_test_Y7mCimFhahTLE2loG87wcVMK
+    stripe_public_key: pk_test_ljeui9Gg7Af0K7js2vBXaV6U

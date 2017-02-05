@@ -10,3 +10,9 @@ services:
 
   event_manager:
       class: AppBundle\Services\EventManager
+
+  stripe_manager:
+      class: AppBundle\Services\StripeManager
+      autowire: true
+      arguments: ['%stripe_secret_key%']
+

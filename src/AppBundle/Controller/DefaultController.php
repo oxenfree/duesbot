@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Club;
+use AppBundle\Entity\Due;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -38,15 +39,29 @@ class DefaultController extends Controller
                 ->getDoctrine()
                 ->getRepository(Club::class)
                 ->findOneBy(['name' => 'Bat Country East']);
-            $club = $currentUser->getClub();
-            if(!isset($club))  {
-                $currentUser->setClub($bcEast);
-                $club = $bcEast;
-            };
+            $currentUser->setClub($bcEast);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($currentUser);
+            $em->flush();
+            $balanceObj = $this->get('stripe_manager')->getBalance();
+            $pending = $balanceObj['pending'][0]['amount'] / 100;
+            $available = $balanceObj['available'][0]['amount'] / 100;
+
+            $dues = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository(Due::class)
+                ->findOneBy(['user' => $currentUser, 'club' => $currentUser->getClub()])
+            ;
+
             $renderParams = [
                 'user' => $currentUser,
-                'club' => $club,
-                'events' => $club->getEvents(),
+                'club' => $currentUser->getClub(),
+                'events' => $currentUser->getClub()->getEvents(),
+                'dues' => $dues,
+                'available' => $available,
+                'pending' => $pending,
             ];
         }
 

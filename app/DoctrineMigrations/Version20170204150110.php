@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170203001222 extends AbstractMigration
+class Version20170204150110 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,9 +18,9 @@ class Version20170203001222 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE event ADD owner_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA77E3C61F9 FOREIGN KEY (owner_id) REFERENCES fos_user (id)');
-        $this->addSql('CREATE INDEX IDX_3BAE0AA77E3C61F9 ON event (owner_id)');
+        $this->addSql('CREATE TABLE due (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, club_id INT DEFAULT NULL, amount_per_month DOUBLE PRECISION NOT NULL, INDEX IDX_DF0FA28AA76ED395 (user_id), INDEX IDX_DF0FA28A61190A32 (club_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE due ADD CONSTRAINT FK_DF0FA28AA76ED395 FOREIGN KEY (user_id) REFERENCES fos_user (id)');
+        $this->addSql('ALTER TABLE due ADD CONSTRAINT FK_DF0FA28A61190A32 FOREIGN KEY (club_id) REFERENCES club (id)');
     }
 
     /**
@@ -31,8 +31,6 @@ class Version20170203001222 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA77E3C61F9');
-        $this->addSql('DROP INDEX IDX_3BAE0AA77E3C61F9 ON event');
-        $this->addSql('ALTER TABLE event DROP owner_id');
+        $this->addSql('DROP TABLE due');
     }
 }

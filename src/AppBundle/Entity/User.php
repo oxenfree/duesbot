@@ -35,6 +35,13 @@ class User extends BaseUser
     private $events;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stripe_customer_id", type="string", unique=true, nullable=true)
+     */
+    private $stripeCustomerId;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -111,5 +118,23 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getStripeCustomerId()
+    {
+        return $this->stripeCustomerId;
+    }
 
+    /**
+     * @param string $stripeCustomerId
+     *
+     * @return User
+     */
+    public function setStripeCustomerId($stripeCustomerId)
+    {
+        $this->stripeCustomerId = $stripeCustomerId;
+
+        return $this;
+    }
 }

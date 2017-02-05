@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <h5>Pay dues to {{ user.club.name }}</h5>
+    <p>
+        Hi {{ user.userName }},<br />
+        Enter in an amount to pay per month to {{ user.club.name }} <sup>1</sup>.
+    </p>
+    <div class="input-field">
+        {{ form_errors(form) }}
+        {{ form_row(form.amountPerMonth) }}
+    </div>
+    {{ form_widget(form) }}
+    <sup><sup>1</sup> You'll have a chance to review your dues amount on the next screen before paying.</sup><br />
+    <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
+    <br />
+    <br />
+    <a href="{{ path('app_index') }}">Back to the homepage</a>
+    {{ form_end(form) }}
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
