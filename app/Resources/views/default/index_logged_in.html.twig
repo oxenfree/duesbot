@@ -89,7 +89,15 @@
                                     <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Show</a>
                                     {% if user == event.owner %}
                                         <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1">Edit</a>
-                                        <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="btn waves-effect waves-light orange accent-2">Delete</a>
+                                        <a href="#" data-activates="dropdown_delete_{{ event.id }}" data-beloworigin="true" class="dropdown-button btn waves-effect waves-light orange accent-2">Delete</a>
+                                        <ul id="dropdown_delete_{{ event.id }}" class="dropdown-content">
+                                            <li>
+                                                <a href="">No</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="orange-text">Yes, delete</a>
+                                            </li>
+                                        </ul>
                                     {% endif %}
                                 </td>
                             </tr>

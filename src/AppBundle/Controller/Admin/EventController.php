@@ -59,6 +59,7 @@ class EventController extends Controller
                 ->get('event_manager')
                 ->fillEvent($event, $bcEast)
             ;
+            $event->setOwner($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);

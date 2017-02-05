@@ -1,0 +1,23 @@
+{% if error %}
+    <div class="orange-text">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="input-field">
+        <label for="username">username</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+    </div>
+    <div class="input-field">
+    <label for="password">password</label>
+    <input type="password" id="password" name="_password" required="required" />
+    </div>
+    <div>
+        <button class="btn waves-effect waves-light orange" type="submit" value="">
+            submit
+            <i class='material-icons right'>send</i>
+        </button>
+    </div>
+</form>

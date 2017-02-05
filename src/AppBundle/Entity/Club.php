@@ -54,7 +54,7 @@ class Club
     /**
      * @var Event[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="club", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="club", cascade={"persist", "remove"})
      */
     private $events;
     /**
