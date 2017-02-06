@@ -12,12 +12,12 @@
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+        <script src="{{ asset('js/site.js') }}"></script>
         <style>
             {% block stylesheets %}{% endblock %}
         </style>
     </head>
     <body>
-        <div class="container">
             {% include ':partial:header.html.twig' %}
             {% if app.request.hasPreviousSession %}
                 {% for type, messages in app.session.flashbag.all() %}
@@ -34,6 +34,5 @@
                     {% endblock fos_user_content %}
                 </div>
             </div>
-        </div>
     </body>
 </html>

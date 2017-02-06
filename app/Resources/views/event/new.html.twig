@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {{ form_start(form) }}
-    <div class="input-field">
-        {{ form_row(form.name) }}
+    <div class="row">
+        <div class="section col s8">
+        {{ form_start(form) }}
+        <div class="input-field">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="input-field">
+            {{ form_row(form.description) }}
+        </div>
+        {{ form_widget(form) }}
+        <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
+        <br />
+        <br />
+        <a href="{{ path('app_index') }}">Back to the list</a>
+        {{ form_end(form) }}
+        </div>
     </div>
-    <div class="input-field">
-        {{ form_row(form.description) }}
-    </div>
-    {{ form_widget(form) }}
-    <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
-    <br />
-    <br />
-    <a href="{{ path('app_index') }}">Back to the list</a>
-    {{ form_end(form) }}
 {% endblock %}
-{% block stylesheets %}
-{% endblock %}
-{% block javascripts %}
-{% endblock %}
+

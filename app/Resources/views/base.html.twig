@@ -31,32 +31,11 @@
     <main>
             {% block body %}{% endblock %}
     </main>
-   <footer class="page-footer grey">
-       <div class="footer-copyright">
-           <div class="container">
-               © {{ 'now'|date('Y') }} Copyright duebat.com. All rights reserved.
-               <a class="grey-text text-lighten-4 right" href="#modal_terms"> Terms of Service </a>
-           </div>
-       </div>
-   </footer>
+    {% include 'partial/footer.html.twig' %}
     {% include 'partial/terms.html.twig' %}
    </body>
+    <script src="{{ asset('js/site.js') }}"></script>
     <script>
-        $(document).ready(function(){
-            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal').modal();
-        });
-        $('.datepicker').pickadate({
-            min: new Date(),
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 3, // Creates a dropdown of 15 years to control year
-            format: 'yyyy-mm-dd'
-        });
-
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-
         {% for flash_message in app.session.flashBag.get('success') %}
         $(document).ready(function () {
             Materialize.toast('{{ flash_message }}', 3500, 'teal accent-4')

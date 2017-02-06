@@ -3,7 +3,6 @@
 {% block body %}
 <div class="row">
     <div class="section col s8">
-
         <h5>{{ event.name }}</h5>
         <p>
             {{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }}
@@ -48,12 +47,11 @@
                 <i class="material-icons">menu</i>
             </a>
             <ul>
-                <li><a class="btn-floating orange accent-2" title="delete this event"><i class="material-icons">delete_forever</i></a></li>
-                <li><a class="btn-floating blue lighten-1" title="edit this event"><i class="material-icons">mode_edit</i></a></li>
+                <li><a class="btn-floating orange accent-2" href="{{ path('app_event_delete', {'id': event.id}) }}" title="delete this event"><i class="material-icons">delete_forever</i></a></li>
+                <li><a class="btn-floating blue lighten-1" href="{{ path('app_event_edit', {'id': event.id}) }}" title="edit this event"><i class="material-icons">mode_edit</i></a></li>
             </ul>
         </div>
     {% endif %}
 <a href="{{ path('app_index') }}">Back to the list</a>
 {% endblock %}
-{% block stylesheets %}
-{% endblock %}
+

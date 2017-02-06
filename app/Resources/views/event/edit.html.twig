@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 {% set page_title="Event Edit" %}
 {% block body %}
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
-    <br />
-    <br />
-    <a href="{{ path('app_index') }}">Back to the list</a>
-{{ form_end(form) }}
-{% endblock %}
-{% block stylesheets %}
+    <div class="row">
+        <div class="section col s8">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
+        <br />
+        <br />
+        <a href="{{ path('app_index') }}">Back to the list</a>
+    {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
