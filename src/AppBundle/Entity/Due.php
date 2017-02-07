@@ -33,6 +33,8 @@ class Due
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     *
+     * @ORM\JoinColumn(name="user_id", onDelete="CASCADE")
      */
     private $user;
 
