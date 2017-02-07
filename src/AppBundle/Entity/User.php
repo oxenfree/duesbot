@@ -30,7 +30,7 @@ class User extends BaseUser
     /**
      * @var Event[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="owner", cascade={"persist"})
      */
     private $events;
 
