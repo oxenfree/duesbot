@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ user.userName }} Membership Details{% endblock %}</title>
+</head>
+<body>
+    <strong>Hola {{ user.userName }},</strong>
+    <p>
+        It's me, Ollie. This email is to confirm that you are signed up for ${{ due.amountPerMonth }} per month on Duebat.
+        Isn't it cool?
+    </p>
+    <p>
+        This is the only email you'll get for now. I may make some other confirmation emails in the future, but
+        nothing's in the works presently.
+    </p>
+    <p>
+        Anywho. If the site's messed up or you want to cancel or something just reply to this email or text
+        me if you have my number. Thanks for helping me out with this project and I hope the site is useful to us.
+    </p>
+    <p>
+        Gracias,
+        <br />
+        ~ Ollie
+    </p>
+</body>
+</html>

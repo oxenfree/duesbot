@@ -124,6 +124,7 @@ class DueController extends Controller
                 $this->addFlash('success', "Dues order complete!");
                 $due->setCheckedOut(true);
                 $this->getDoctrine()->getManager()->flush();
+                $this->get('email_manager')->sendConfirmationEmail($user);
 
                 return $this->redirectToRoute('app_index');
             }
