@@ -196,6 +196,7 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
+            $event->setVotingEnd($this->get('event_manager')->setVotingEndDate($event));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();

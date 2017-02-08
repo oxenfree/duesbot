@@ -19,9 +19,9 @@ use Symfony\Component\Validator\Constraints\Date;
 class EventManager
 {
     /**
-     * @param User $user
-     * @param Event $event
-     * @param bool $isVoteYes
+     * @param User   $user
+     * @param Event  $event
+     * @param bool   $isVoteYes
      *
      * @return UserVote|mixed|null
      */
@@ -55,13 +55,12 @@ class EventManager
         $status = (new EventStatus())
             ->setValue(EventStatus::VOTING_OPEN)
         ;
-        $votingEnd = $this->setVotingEndDate($event);
 
         $event
             ->setVotingStart(new \DateTime('now'))
             ->setClub($club)
             ->setStatus($status)
-            ->setVotingEnd($votingEnd)
+            ->setVotingEnd($this->setVotingEndDate($event))
         ;
     }
 

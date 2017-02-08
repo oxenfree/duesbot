@@ -72,9 +72,11 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 ->setClub($club)
                 ->setOwner($eventTrait['owner'])
             ;
+            $endDate = new \DateTime($event->getDate()->format('Y-m-d'));
+            $endDate->modify('-1 week');
             $event
                 ->setTime($event->getDate()->setTime(14, 55))
-                ->setVotingEnd($event->getDate()->modify('-1 week'))
+                ->setVotingEnd($endDate)
             ;
 
             $this->addReference($eventTrait['name'], $event);
