@@ -7,14 +7,14 @@
                     <i class="small material-icons">perm_identity</i>
                 </li>
                 <li>
-                    <a href="{{ path('app_profile_show') }}">profile</a>
+                    <a href="{{ path('app_profile_show') }}">Profile</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('app_admin_index') }}">admin</a></li>
+                    <li><a href="{{ path('app_admin_index') }}">Admin</a></li>
                 {% endif %}
-                <li><a href="/logout">logout</a></li>
+                <li><a href="/logout">Logout</a></li>
             {% else %}
-                <li class="grey lighten-3"><a href="/register" class="orange-text lighten-5">register</a></li>
+                <li class="grey lighten-3"><a href="/register" class="orange-text lighten-5">Register</a></li>
             {% endif %}
         </ul>
     </div>

@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set page_title="New event" %}
 {% block body %}
     <div class="row">
         <div class="section col s8">
@@ -8,6 +9,9 @@
         </div>
         <div class="input-field">
             {{ form_row(form.description) }}
+        </div>
+        <div class="input-field">
+            {{ form_row(form.time) }}
         </div>
         {{ form_widget(form) }}
         <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>

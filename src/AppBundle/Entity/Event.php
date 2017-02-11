@@ -100,7 +100,7 @@ class Event
     /**
      * @var EventStatus
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EventStatus", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EventStatus", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="event_status_id")
      */
     private $status;

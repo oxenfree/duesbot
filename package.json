@@ -1,0 +1,22 @@
+{
+  "name": "duebat",
+  "version": "0.0.0",
+  "description": "Dues collection web app",
+  "main": "index.php",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "materialize-clockpicker": "~1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:asolivieri/duebat.git"
+  },
+  "author": "Ollie",
+  "license": "BSD-2-Clause"
+}

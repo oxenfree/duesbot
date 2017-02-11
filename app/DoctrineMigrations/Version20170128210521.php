@@ -23,6 +23,19 @@ class Version20170128210521 extends AbstractMigration
         $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, club_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, score INT DEFAULT NULL, totalVotes INT DEFAULT NULL, date DATETIME NOT NULL, time DATETIME NOT NULL, votingStart DATETIME NOT NULL, votingEnd DATETIME NOT NULL, status VARCHAR(255) NOT NULL, INDEX IDX_3BAE0AA761190A32 (club_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE fos_user ADD CONSTRAINT FK_957A647961190A32 FOREIGN KEY (club_id) REFERENCES club (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA761190A32 FOREIGN KEY (club_id) REFERENCES club (id)');
+        $this->addSql(
+            'SET GLOBAL event_scheduler = ON;
+            CREATE EVENT switch_event_status
+            ON SCHEDULE EVERY 12 HOUR
+            DO
+            UPDATE event_status
+            INNER JOIN
+            event ON event_status.id = event.event_status_id
+            SET
+            event_status.value = \'Voting is closed.\'
+            where 
+            event.voting_end <= cast(now() as date)'
+        );
     }
 
     /**
@@ -38,5 +51,6 @@ class Version20170128210521 extends AbstractMigration
         $this->addSql('DROP TABLE club');
         $this->addSql('DROP TABLE fos_user');
         $this->addSql('DROP TABLE event');
+        $this->addSql('DROP EVENT IF EXISTS switch_event_status');
     }
 }

@@ -23,17 +23,12 @@
             {% block body %}{% endblock %}
         </div>
     </body>
-    {% block javascripts %}
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('select').material_select();
-            });
-
-            {% for flash_message in app.session.flashBag.get('success') %}
-            $(document).ready(function () {
-                Materialize.toast('{{ flash_message }}', 3500, 'teal accent-4')
-            });
-            {% endfor %}
-        </script>
-    {% endblock %}
+    <script src="{{ asset('js/site.js') }}"></script>
+    <script>
+        {% for flash_message in app.session.flashBag.get('success') %}
+        $(document).ready(function () {
+            Materialize.toast('{{ flash_message }}', 3500, 'teal accent-4')
+        });
+        {% endfor %}
+    </script>
 </html>

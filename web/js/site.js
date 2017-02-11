@@ -11,3 +11,8 @@ $('.datepicker').pickadate({
 $(document).ready(function() {
     $('select').material_select();
 });
+$('.timepicker').pickatime({
+    autoclose: false,
+    twelvehour: false,
+    default: "1:00"
+});

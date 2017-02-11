@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% set page_title="Profile" %}
+{% block body %}
+<div class="row">
+    <div class="section col s6 offset-s3">
+        <h5>Page Not Found</h5>
+        <div>
+            <span> The server returned a "{{ status_code }} {{ status_text }}".</span>
+            <p>
+                Sorry! Something broke. Please let us know what you were doing when this error occurred.
+                We will fix it as soon as possible. Sorry for any inconvenience caused.
+            </p>
+            <p>
+                Please try going back through the <a href="{{ path('app_index') }}">homepage</a>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

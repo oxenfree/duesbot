@@ -40,8 +40,11 @@ class EventEditType extends AbstractType
             ])
             ->add('time', TimeType::class,[
                 'input'  => 'datetime',
-                'label' => 'What time?',
                 'widget' => 'single_text',
+                'label' => 'Time',
+                'attr' => [
+                    'class' => 'timepicker',
+                ],
             ])
         ;
     }
