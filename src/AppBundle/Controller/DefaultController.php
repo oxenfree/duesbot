@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="app_index")
+     * @Route("/", name="app_index", schemes={"%secure_channel%"})
      * @param Request $request
      *
      * @return Response
