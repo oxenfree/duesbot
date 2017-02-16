@@ -7,34 +7,20 @@
         <p>
             Your club, {{ club.name }}, has:
         </p>
-        <table class="bordered">
-            <tr>
-                <th>
-                    Treasury:
-                </th>
-                <td>
-                    ${{ available|number_format(2) }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Pending Treasury:
-                </th>
-                <td>
-                    ${{ pending|number_format(2) }} <sup>1</sup>
-                </td>
-            </tr>
-            {% if dues is null or dues.isCheckedOut == false %}
-            <tr>
-                <th>
-                    Event{{ events|length > 0 ? 's' }}:
-                </th>
-                <td>
-                    {{ events|length }}
-                </td>
-            </tr>
-            {% endif %}
-        </table>
+        <div class="section">
+            <h5>Treasury</h5>
+            <p>
+                ${{ available|number_format(2) }}
+            </p>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+            <h5>Pending treasury:</h5>
+            <p>
+                ${{ pending|number_format(2) }} <sup><a href="#note">1</a></sup>
+            </p>
+        </div>
+        <div class="divider"></div>
         {% if dues is null or dues.isCheckedOut == false %}
         <p>
             Once you've <a href="{{ path('app_due_create') }}">paid dues</a>, you'll be able to create and vote on events.
@@ -44,77 +30,44 @@
         </p>
             {% else %}
                 {% if events %}
-                    <table class="highlight">
-                        <thead>
-                        <tr>
-                            <th>
-                                Event
-                            </th>
-                            <th>
-                                Date
-                            </th>
-                            <th>
-                                Status
-                            </th>
-                            <th>
-                                Score
-                            </th>
-                            <th>
-                                Voting ends
-                            </th>
-                            <th>
-                                Coordinator
-                            </th>
-                            <th>
-                                Action
-                            </th>
-                        </tr>
-                        </thead>
+                    <div class="section">
+                    <h5>Events</h5>
                         {% for event in events %}
-                            <tbody>
-                            <tr>
-                                <td>
-                                    {{ event.name[:25] ~ ' ...'  }}
-                                </td>
-                                <td>
-                                    {{ event.date|date('M/d/Y') }}
-                                </td>
-                                <td>
-                                    {{ event.status }}
-                                </td>
-                                <td>
-                                    {{ event.voteTotal }}
-                                </td>
-                                <td>
-                                    {{ event.votingEnd|date('M/d/Y') }}
-                                </td>
-                                <td>
-                                    {{ event.owner.userName }}
-                                </td>
-                                <td>
-                                    <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Show</a>
-                                    {% if user == event.owner %}
-                                        <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1">Edit</a>
-                                        <a href="#" data-activates="dropdown_delete_{{ event.id }}" data-beloworigin="true" class="dropdown-button btn waves-effect waves-light orange accent-2">Delete</a>
-                                        <ul id="dropdown_delete_{{ event.id }}" class="dropdown-content">
-                                            <li>
-                                                <a>No</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="orange-text">Yes, delete</a>
-                                            </li>
-                                        </ul>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            </tbody>
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle teal">folder</i>
+                                    <span class="title">{{ event.name[:25] ~ ' ...'  }}</span>
+                                    <p>
+                                        Total votes: {{ event.voteTotal }}
+                                    </p>
+                                    <p>
+                                        Event status: {{ event.status }}
+                                    </p>
+                                    <span class="secondary-content">
+                                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light"><i class="material-icons">thumbs_up_down</i></a>
+                                        {% if user == event.owner %}
+                                            <span class="hide-on-med-and-down">
+                                                    <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1"><i class="material-icons">edit</i></a>
+                                                    <a href="#" data-activates="dropdown_delete_{{ event.id }}" data-beloworigin="true" class="dropdown-button btn waves-effect waves-light orange accent-2"><i class="material-icons">delete_forever</i></a>
+                                                    <ul id="dropdown_delete_{{ event.id }}" class="dropdown-content">
+                                                        <li>
+                                                            <a>No</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="orange-text">Yes, delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                        {% endif %}
+                                        </span>
+                                </li>
+                            </ul>
                         {% endfor %}
-                    </table>
+                    </div>
                 {% endif %}
-                <br />
                 <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
-        {% endif %}
-        <p>
+            {% endif %}
+        <p id="note">
             <sup><sup>1</sup>Charges may take around a week to clear and show in the balance.</sup>
         </p>
     </div>

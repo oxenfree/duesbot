@@ -18,3 +18,4 @@ $('.timepicker').pickatime({
     twelvehour: false,
     default: "1:00"
 });
+$(".button-collapse").sideNav();
