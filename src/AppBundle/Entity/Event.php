@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,12 +27,28 @@ class Event
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="1",
+     *     max="255",
+     *     minMessage="You must enter more than one character.",
+     *     maxMessage="This name is far too long."
+     * )
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="1",
+     *     max="1000",
+     *     minMessage="You must enter more than one character.",
+     *     maxMessage="This description is far too long."
+     * )
      *
      * @ORM\Column(name="description", type="text")
      */
@@ -55,6 +72,8 @@ class Event
      * Date of the event.
      *
      * @var \DateTime
+     *
+     * @Assert\Range(min="today", max="+2 years")
      *
      * @ORM\Column(name="date", type="datetime")
      */
