@@ -19,3 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     stripe_secret_key: sk_test_Y7mCimFhahTLE2loG87wcVMK
     stripe_public_key: pk_test_ljeui9Gg7Af0K7js2vBXaV6U
+    mailer_disable: true
+    stripe_secret_key: sk_live_ArMB6SlVHheRulT1Vc9t9Mkx
+    stripe_public_key: pk_live_YGHoIo1tATqazVi9NlhRZXbx
+    secure_channel: http
