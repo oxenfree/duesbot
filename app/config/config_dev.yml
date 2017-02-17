@@ -37,4 +37,4 @@ parameters:
     stripe_public_key: pk_test_ljeui9Gg7Af0K7js2vBXaV6U
 
 swiftmailer:
-    disable_delivery:  true
+    disable_delivery: '%mailer_disable%'
