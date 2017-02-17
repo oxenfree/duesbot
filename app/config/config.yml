@@ -70,9 +70,6 @@ swiftmailer:
     password:  "%mailer_password%"
     disable_delivery: "%mailer_disable%"
 
-framework:
-    translator: ~
-
 fos_user:
     db_driver: orm
     firewall_name: main
