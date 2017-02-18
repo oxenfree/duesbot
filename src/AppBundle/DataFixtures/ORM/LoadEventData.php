@@ -20,13 +20,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
 
         $description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget vestibulum risus. 
             Sed porta rutrum sodales. Mauris at volutpat risus, at aliquet risus. Proin rutrum libero aliquet augue 
-            consectetur finibus. Integer euismod sagittis ex, at semper sapien. Aenean elementum, nisl ullamcorper 
-            porttitor facilisis, mi dolor rutrum neque, non efficitur lectus sapien lobortis nisl. Donec porttitor 
-            eros magna, ut cursus velit pulvinar in. Quisque auctor dui nunc, eget ultricies risus porttitor a. Mauris 
-            dignissim nibh tellus, in porttitor diam feugiat in. Nam nulla ipsum, accumsan at congue quis, aliquet 
-            non ante. In et iaculis dolor. Proin maximus venenatis lorem. Mauris eros neque, faucibus at massa non, 
-            bibendum consequat augue. Pellentesque iaculis, purus vel tristique interdum, orci lacus faucibus tellus, 
-            vel faucibus sem risus non tellus. Nullam eget convallis risus, a dictum justo."
+            consectetur finibus. Integer euismod sagittis ex, at semper sapien."
         ;
         $kip = $this->getReference('member_Kip');
         $me = $this->getReference('member_Ollie');
@@ -41,6 +35,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'date' => new \DateTime('2017-10-31'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $me,
+                'estimatedCost' => 100,
             ],
             [
                 'name' => 'New Years Eve 2017',
@@ -50,6 +45,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'date' => new \DateTime('2017-12-31'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $kip,
+                'estimatedCost' => 200,
             ],
             [
                 'name' => 'Fly in a friend',
@@ -59,6 +55,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 'date' => new \DateTime('2017-11-15'),
                 'voting start' => new \DateTime('now'),
                 'owner' => $brick,
+                'estimatedCost' => 700,
             ],
         ];
 
@@ -71,6 +68,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
                 ->setVotingStart($eventTrait['voting start'])
                 ->setClub($club)
                 ->setOwner($eventTrait['owner'])
+                ->setEstimatedCost($eventTrait['estimatedCost'])
             ;
             $endDate = new \DateTime($event->getDate()->format('Y-m-d'));
             $endDate->modify('-1 week');

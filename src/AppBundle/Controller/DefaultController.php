@@ -66,6 +66,11 @@ class DefaultController extends Controller
         $pending = $balanceObj['pending'][0]['amount'] / 100;
         $available = $balanceObj['available'][0]['amount'] / 100;
 
+        $eventCost = 0;
+        foreach ($bcEast->getEvents() as $event) {
+            $eventCost += $event->getEstimatedCost();
+        }
+
         $dues = $this
             ->getDoctrine()
             ->getManager()
@@ -82,6 +87,7 @@ class DefaultController extends Controller
             'dues' => $dues,
             'available' => $available,
             'pending' => $pending,
+            'eventCost' => $eventCost,
         ];
 
         return $this->render($template, $renderParams);

@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -45,6 +46,10 @@ class EventEditType extends AbstractType
                 'attr' => [
                     'class' => 'timepicker',
                 ],
+            ])
+            ->add('estimatedCost', NumberType::class, [
+                'scale' => 0,
+                'label' => '$ Estimated cost',
             ])
         ;
     }

@@ -125,6 +125,14 @@ class Event
     private $status;
 
     /**
+     * @var int
+     * @Assert\Range(min=1, max=5000)
+     *
+     * @ORM\Column(name="estimated_cost", type="integer")
+     */
+    private $estimatedCost;
+
+    /**
      * Event constructor.
      */
     public function __construct()
@@ -355,7 +363,6 @@ class Event
         $this->userVotes[$userVote->getUser()->getUsername()] = $userVote;
 
         return $this;
-
     }
 
     /**
@@ -407,6 +414,26 @@ class Event
     public function setOwner($owner)
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEstimatedCost()
+    {
+        return $this->estimatedCost;
+    }
+
+    /**
+     * @param int $estimatedCost
+     *
+     * @return Event
+     */
+    public function setEstimatedCost($estimatedCost)
+    {
+        $this->estimatedCost = $estimatedCost;
 
         return $this;
     }

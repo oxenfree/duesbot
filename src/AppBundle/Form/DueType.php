@@ -10,6 +10,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Due;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,9 @@ class DueType extends AbstractType
     {
         $builder
             ->add('amountPerMonth', NumberType::class, [
-                'label' => '$ Amount per Month'
+                'label' => '$ Amount per month',
+                'scale' => 2,
+                'rounding_mode' => NumberToLocalizedStringTransformer::ROUND_HALF_DOWN,
             ])
         ;
     }

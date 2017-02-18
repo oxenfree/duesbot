@@ -8,11 +8,32 @@
                 <span class="card-title">{{ event.name }}</span>
                 <p>(<strong>{{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }})</strong></p>
                 <p>
-                    {{ event.description }}
+                    <strong>Description:</strong>{{ event.description }}
                 </p>
                 <p>
-                    <h5>Current Score: {{ event.voteTotal }}</h5>
+                    <strong>Estimated cost:</strong> ${{ event.estimatedCost }}
                 </p>
+                <p>
+                    <strong>Event host:</strong> {{ event.owner.userName }}
+
+                </p>
+                {% if event.status == 'Voting is open.' %}
+                <p>
+                    <strong>Event status:</strong> Voting is open! Vote for this event below.
+                </p>
+                {% else %}
+                <p>
+                    <strong>Event status:</strong> {{ event.status }}
+                </p>
+                {% endif %}
+                    <h5>Current Score: {{ event.voteTotal }}</h5>
+                {% if app.user == event.owner %}
+                    <br />
+                    <span class="blue-text">
+                        (You're the event host.
+                        You can edit or delete this event using the blue menu on the bottom right of this page.)
+                    </span>
+                {% endif %}
             </div>
             <div class="card-action">
                 <a href="{{ path('app_event_vote_yes', {'id': event.id}) }}"

@@ -11,7 +11,13 @@
             {{ form_row(form.description) }}
         </div>
         <div class="input-field">
+            {{ form_row(form.date) }}
+        </div>
+        <div class="input-field">
             {{ form_row(form.time) }}
+        </div>
+        <div class="input-field">
+            {{ form_row(form.estimatedCost) }}
         </div>
         {{ form_widget(form) }}
         <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
