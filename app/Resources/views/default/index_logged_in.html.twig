@@ -33,10 +33,13 @@
                     <div class="section">
                     <h5>Events</h5>
                         {% for event in events %}
-                            <ul class="collection">
+                            <ul class="collection" id="ul-event-{{ event.id }}">
                                 <li class="collection-item avatar">
                                     <i class="material-icons circle teal">folder</i>
-                                    <span class="title">{{ event.name[:25] ~ ' ...'  }}</span>
+                                    <span class="title"><strong>{{ event.name[:25] ~ ' ...'  }}</strong></span>
+                                    <p>
+                                        Event date: {{ event.date|date('D M/d/Y') }}
+                                    </p>
                                     <p>
                                         Votes yes: {{ event.voteTotal }}
                                     </p>
@@ -48,18 +51,10 @@
                                         {% if user == event.owner %}
                                             <span class="hide-on-med-and-down">
                                                     <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1"><i class="material-icons">edit</i></a>
-                                                    <a href="#" data-activates="dropdown_delete_{{ event.id }}" data-beloworigin="true" class="dropdown-button btn waves-effect waves-light orange accent-2"><i class="material-icons">delete_forever</i></a>
-                                                    <ul id="dropdown_delete_{{ event.id }}" class="dropdown-content">
-                                                        <li>
-                                                            <a>No</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ path('app_event_delete', {'id': event.id}) }}" class="orange-text">Yes, delete</a>
-                                                        </li>
-                                                    </ul>
+                                                    <a data-target="delete_modal" data-href="{{ path('app_event_delete', {'id': event.id}) }}" data-id="{{ event.id }}" data-title="{{ event.name }}" class="btn waves-effect waves-light orange accent-2 delete-button"><i class="material-icons">delete_forever</i></a>
                                                 </span>
                                         {% endif %}
-                                        </span>
+                                    </span>
                                 </li>
                             </ul>
                         {% endfor %}
@@ -72,6 +67,7 @@
         </p>
     </div>
 </div>
+{% include 'partial/delete.html.twig' %}
 {% endblock %}
 {% block stylesheets %}
 {% endblock %}

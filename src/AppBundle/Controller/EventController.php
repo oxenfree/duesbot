@@ -13,6 +13,7 @@ use AppBundle\Entity\EventStatus;
 use AppBundle\Form\EventEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -213,7 +214,7 @@ class EventController extends Controller
 
     /**
      * @Route("/delete/{id}", name="app_event_delete")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      * @param int $id
      *
@@ -222,14 +223,11 @@ class EventController extends Controller
     public function deleteAction($id)
     {
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
-        if ($this->getUser() != $event->getOwner()) {
-            throw new NotFoundHttpException('You can\'t delete this page.');
-        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();
-        $this->addFlash('success', 'Event deleted!');
 
-        return $this->redirectToRoute('app_index');
+        return new JsonResponse($this->generateUrl('app_index'));
     }
 }
