@@ -8,7 +8,7 @@
                 <span class="card-title">{{ event.name }}</span>
                 <p>(<strong>{{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }})</strong></p>
                 <p>
-                    <strong>Description:</strong>{{ event.description }}
+                    <strong>Description:</strong> {{ event.description }}
                 </p>
                 <p>
                     <strong>Estimated cost:</strong> ${{ event.estimatedCost }}
@@ -37,7 +37,7 @@
             </div>
             <div class="card-action">
                 <a href="{{ path('app_event_vote_yes', {'id': event.id}) }}"
-                   class="btn waves-effect waves-light teal" {{ voteYes == true ? 'disabled' }}>
+                   class="btn waves-effect waves-light cyan darken-1" {{ voteYes == true ? 'disabled' }}>
                     <i class="material-icons">thumb_up</i> Yep!
                 </a>
                 <a href="{{ path('app_event_vote_no', {'id': event.id}) }}"

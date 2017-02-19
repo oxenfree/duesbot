@@ -27,7 +27,7 @@
     <script>
         {% for flash_message in app.session.flashBag.get('success') %}
         $(document).ready(function () {
-            Materialize.toast('{{ flash_message }}', 3500, 'teal accent-4')
+            Materialize.toast('{{ flash_message }}', 3500, 'cyan accent-4')
         });
         {% endfor %}
     </script>

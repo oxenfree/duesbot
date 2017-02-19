@@ -58,9 +58,9 @@
                     <ul class="collection" id="ul-event-{{ event.id }}">
                         <li class="collection-item avatar">
                             <a href="{{ path('app_event_show', {'id': event.id}) }}">
-                                <i class="material-icons circle teal darken-1">event</i>
+                                <i class="material-icons circle cyan darken-4">event</i>
                             </a>
-                            <span class="title"><a href="{{ path('app_event_show', {'id': event.id}) }}" class="teal-text"><strong>{{ event.name[:25] ~ ' ...'  }}</strong></a></span>
+                            <span class="title"><a href="{{ path('app_event_show', {'id': event.id}) }}" class="cyan-text"><strong>{{ event.name[:25] ~ ' ...'  }}</strong></a></span>
                             <p>
                                 Event date: {{ event.date|date('D M/d/Y') }}
                             </p>
@@ -81,7 +81,7 @@
                                         Delete
                                     </a>
                                 {% endif %}
-                                <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light">Show event</a>
+                                <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light cyan darken-1">Show event</a>
                             </span>
                         </li>
                     </ul>
