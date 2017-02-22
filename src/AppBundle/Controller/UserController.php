@@ -41,6 +41,7 @@ class UserController extends Controller
         return $this->render('/user/show.html.twig', [
             'user' => $user,
             'dues' => $dues,
+            'events' => $user->getEvents(),
         ]);
     }
 }

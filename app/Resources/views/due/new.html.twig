@@ -16,14 +16,14 @@
         {{ form_widget(form) }}
         <sup><sup>1</sup> You'll have a chance to review your dues amount on the next screen before paying.</sup><br />
         <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
-        <br />
-        <br />
-        <a href="{{ path('app_index') }}">Back to the homepage</a>
         {{ form_end(form) }}
         </div>
     </div>
-{% endblock %}
-{% block stylesheets %}
-{% endblock %}
-{% block javascripts %}
+    <div class="row">
+        <div class="section col s12 l8 offset-l2">
+            <p>
+                <a href="{{ path('app_index') }}">Back to the homepage</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}

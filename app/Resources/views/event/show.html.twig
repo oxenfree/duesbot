@@ -2,7 +2,7 @@
 {% set page_title=event.name %}
 {% block body %}
 <div class="row">
-    <div class="section col s12">
+    <div class="section col s12 l8 offset-l2">
         <div class="card grey lighten-4">
             <div class="card-content">
                 <span class="card-title">{{ event.name }}</span>
@@ -59,8 +59,12 @@
             </ul>
         </div>
     {% endif %}
-    <p>
-        <a href="{{ path('app_index') }}">Back to the list</a>
-    </p>
+<div class="row">
+    <div class="section col s12 l8 offset-l2">
+        <p>
+            <a href="{{ path('app_index') }}">Back to the list</a>
+        </p>
+    </div>
+</div>
 {% endblock %}
 
