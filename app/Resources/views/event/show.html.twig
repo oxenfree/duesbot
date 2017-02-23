@@ -6,26 +6,28 @@
         <div class="card grey lighten-4">
             <div class="card-content">
                 <span class="card-title">{{ event.name }}</span>
-                <p>(<strong>{{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }})</strong></p>
-                <p>
-                    <strong>Description:</strong> {{ event.description }}
-                </p>
-                <p>
-                    <strong>Estimated cost:</strong> ${{ event.estimatedCost }}
-                </p>
-                <p>
-                    <strong>Event host:</strong> {{ event.owner.userName }}
+                <ul class="collection">
+                    <li class="collection-item">(<strong>{{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }})</strong></li>
+                    <li class="collection-item">
+                        <strong>Description:</strong> {{ event.description }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>Estimated cost:</strong> ${{ event.estimatedCost }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>Event host:</strong> {{ event.owner.userName }}
 
-                </p>
-                {% if event.status == 'Voting is open.' %}
-                <p>
-                    <strong>Event status:</strong> Voting is open! Vote for this event below.
-                </p>
-                {% else %}
-                <p>
-                    <strong>Event status:</strong> {{ event.status }}
-                </p>
-                {% endif %}
+                    </li>
+                    {% if event.status == 'Voting is open.' %}
+                    <li class="collection-item">
+                        <strong>Event status:</strong> Voting is open! Should we fund this event? Vote for it below.
+                    </li>
+                    {% else %}
+                    <li class="collection-item">
+                        <strong>Event status:</strong> {{ event.status }}
+                    </li>
+                    {% endif %}
+                </ul>
                     <h5>Current Score: {{ event.voteTotal }}</h5>
                 {% if app.user == event.owner %}
                     <br />
