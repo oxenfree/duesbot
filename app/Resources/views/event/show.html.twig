@@ -9,7 +9,7 @@
                 <ul class="collection">
                     <li class="collection-item">(<strong>{{ event.date|date('M/d/Y') ~ ' ~ ' ~ event.time|date('h:m a') }})</strong></li>
                     <li class="collection-item">
-                        <strong>Description:</strong> {{ event.description }}
+                        <strong>Description:</strong> {{ event.description|nl2br }}
                     </li>
                     <li class="collection-item">
                         <strong>Estimated cost:</strong> ${{ event.estimatedCost }}
