@@ -24,10 +24,10 @@ class EventEditType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Event Name',
+                'label' => 'Event name',
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Describe your event',
+                'label' => 'Describe your event, include cost breakdown.',
                 'attr' => [
                     'class' => 'materialize-textarea',
                 ],
