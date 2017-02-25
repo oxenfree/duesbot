@@ -33,6 +33,7 @@ $(document).ready(function(){
 
     $('#terms_modal').modal();
     $('#delete_modal').modal();
+    $('#members_modal').modal();
 
     //#############################################
     //########## Delete Event #####################

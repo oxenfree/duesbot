@@ -5,7 +5,7 @@
     <div class="section col s12">
         <h5>{{ user.userName }},</h5>
         <p>
-            Your club, {{ club.name }}, has:
+            Your club, <a href="#members_modal">{{ club.name }}</a>, has:
         </p>
     </div>
     <div class="row">
@@ -58,7 +58,7 @@
                     <ul class="collection" id="ul-event-{{ event.id }}">
                         <li class="collection-item avatar">
                             <a href="{{ path('app_event_show', {'id': event.id}) }}">
-                                <i class="material-icons circle cyan darken-4">event</i>
+                                <i class="material-icons circle cyan darken-3">event</i>
                             </a>
                             <span class="title"><a href="{{ path('app_event_show', {'id': event.id}) }}" class="cyan-text"><strong>{{ event.name[:25] ~ ' ...'  }}</strong></a></span>
                             <p>
@@ -96,6 +96,7 @@
         </p>
     </div>
 </div>
+{% include 'partial/members.html.twig' %}
 {% include 'partial/delete.html.twig' %}
 {% endblock %}
 {% block stylesheets %}

@@ -1,0 +1,19 @@
+<div id="members_modal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h5>{{ club.name }} members</h5>
+        <ul class="collection">
+            {% for user in club.users %}
+                <li class="collection-item avatar">
+                    <a href="{{ path('app_other_show', {'id': user.id}) }}"><i class="material-icons circle cyan darken-3">account_box</i></a>
+                    <span class="title"><a href="{{ path('app_other_show', {'id': user.id}) }}">{{ user.userName }}</a></span>
+                    <span class="secondary-content hide-on-med-and-down">
+                            <a href="{{ path('app_other_show', {'id': user.id}) }}" class="btn waves-effect waves-light cyan darken-1">Show profile</a>
+                        </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
