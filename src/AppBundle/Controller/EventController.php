@@ -214,7 +214,7 @@ class EventController extends Controller
 
     /**
      * @Route("/delete/{id}", name="app_event_delete")
-     * @Method({"GET"})
+     * @Method({"DELETE"})
      *
      * @param int $id
      *

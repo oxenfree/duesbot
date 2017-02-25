@@ -1,8 +1,15 @@
 $(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal').modal();
+
+    //###############################################
+    //########## Materialize standard JS ############
+    //###############################################
 
     $('select').material_select();
+    $('.button-collapse').sideNav();
+
+    //###############################################
+    //######### Date and Time pickers ###############
+    //###############################################
 
     $('.timepicker').pickatime({
         autoclose: false,
@@ -16,21 +23,30 @@ $(document).ready(function(){
     $('.datepicker').pickadate({
         min: new Date(now),
         selectMonths: true, // Creates a dropdown to control month
-        selectYears: 3, // Creates a dropdown of 15 years to control year
+        selectYears: 3, // Creates a dropdown of 3 years to control year
         format: 'yyyy-mm-dd'
     });
 
-    $('.button-collapse').sideNav();
+    //#############################################
+    //########## Modals ###########################
+    //#############################################
 
+    $('#terms_modal').modal();
     $('#delete_modal').modal();
+
+    //#############################################
+    //########## Delete Event #####################
+    //#############################################
 
     $('.delete-button').on('click', function (e) {
         var url = $(this).data('href'),
             redirectRoute = $(this).data('route'),
             id = $(this).data('id'),
-            name = $(this).attr('data-title');
+            name = $(this).attr('data-title'),
+            desc = $(this).attr('data-desc');
 
         $('.modal-title').html(name);
+        $('.modal-description').html(desc);
 
         $('.modalConfirm').click(function (e) {
             e.preventDefault();
@@ -38,7 +54,7 @@ $(document).ready(function(){
             $.ajax({
                 url: url,
                 dataType: "json",
-                method: "GET",
+                method: "DELETE",
                 success: function (urlReturnedFromController) {
                     //I return a jsonResponse url from controller
                     //and catch it in this function argument
