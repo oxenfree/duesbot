@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% set page_title=user.userName ~ " Profile" %}
+{% set page_title=user.userName ~ " profile" %}
 {% block body %}
     <div class="row">
         <div class="section col s12 l8 offset-l2">
@@ -42,13 +42,15 @@
             </p>
         </div>
     </div>
+    {% if user == app.user %}
     <div class="fixed-action-btn click-to-toggle">
         <a class="btn-floating btn-large blue lighten-1">
             <i class="material-icons">menu</i>
         </a>
         <ul>
-            <li><a class="btn-floating blue lighten-1" title="edit your profile"><i class="material-icons">mode_edit</i></a></li>
+            <li><a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-floating blue lighten-1" title="edit your profile"><i class="material-icons">mode_edit</i></a></li>
         </ul>
     </div>
+    {% endif %}
 {% endblock %}
 

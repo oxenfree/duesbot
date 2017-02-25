@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% set page_title=user.userName ~ " profile edit" %}
+{% block body %}
+    <div class="row">
+        <div class="section col s12 l8 offset-l2">
+            <div class="card grey lighten-4">
+                <div class="card-content">
+                    {{ form_start(form) }}
+                    <div class="input-field">
+                        {{ form_widget(form.userName) }}
+                        {{ form_errors(form.userName) }}
+                        <label for="user_edit_userName">Username</label>
+                    </div>
+                    <div class="input-field">
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                        <label for="user_edit_email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        {{ form_widget(form.plainPassword.first) }}
+                        {{ form_errors(form.plainPassword.first) }}
+                        <label for="user_edit_plainPassword_first">Password</label>
+                    </div>
+                    <div class="input-field">
+                        {{ form_widget(form.plainPassword.second) }}
+                        {{ form_errors(form.plainPassword.second) }}
+                        <label for="user_edit_plainPassword_second">Repeat password</label>
+                    </div>
+                    <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section col s12 l8 offset-l2">
+            <a href="{{ path('app_profile_show') }}">Back to your profile</a>
+        </div>
+    </div>
+{% endblock %}

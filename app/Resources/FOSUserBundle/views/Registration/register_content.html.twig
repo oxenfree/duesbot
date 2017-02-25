@@ -4,23 +4,23 @@
     {{ form_widget(form.email, { 'attr': {'class': 'form-control',} }) }}
     {{ form_errors(form.email) }}
 
-    <label for="fos_user_registration_form_email">email</label>
+    <label for="fos_user_registration_form_email">Email</label>
 </div>
 <div class="input-field">
     {{ form_widget(form.username, { 'attr': {'class': 'form-control',} }) }}
     {{ form_errors(form.username) }}
 
-    <label for="fos_user_registration_form_username">username</label>
+    <label for="fos_user_registration_form_username">Username</label>
 </div>
 <div class="input-field">
     {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control',} }) }}
     {{ form_errors(form.plainPassword.first) }}
-    <label for="fos_user_registration_form_plainPassword_first">password</label>
+    <label for="fos_user_registration_form_plainPassword_first">Password</label>
 </div>
 <div class="input-field">
     {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control',} }) }}
     {{ form_errors(form.plainPassword.second) }}
-    <label for="fos_user_registration_form_plainPassword_second">repeat password</label>
+    <label for="fos_user_registration_form_plainPassword_second">Repeat password</label>
 </div>
 {{ form_rest(form) }}
 <div>
