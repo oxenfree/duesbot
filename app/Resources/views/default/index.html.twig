@@ -2,12 +2,7 @@
 {% set page_title="Welcome" %}
 {% block body %}
     <div class="row">
-        <div class="col s12 m4 l4">
-            <div class="card-panel grey lighten-3">
-              <span class="card-title"><h5>Login</h5></span>
               {% include 'partial/login.html.twig' %}
-            </div>
-        </div>
         <div class="col s12 m8 l8">
             <div class="section">
                 <span class="card-title"><h5>Working together</h5></span>
@@ -41,6 +36,10 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+        });
+    </script>
 {% endblock %}
-{% block stylesheets %}
-{% endblock %}
+

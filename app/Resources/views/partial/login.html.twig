@@ -1,16 +1,23 @@
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    <div class="input-field">
-        <input id="name" type="text" class="active validate black-text" name="_username" required="required">
-        <label for="_username">Username</label>
+<div class="col s12 m4 l4">
+    <div class="card-panel grey lighten-3">
+        <span class="left">Login</span><span class="right"><a href="/register">Register</a></span>
+        <div class="section">
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                <div class="input-field">
+                    <input id="name" type="text" class="active validate black-text" name="_username" required="required">
+                    <label for="_username">Username</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="_password" class="active validate black-text" required="required" />
+                    <label for="_password">Password</label>
+                    <sup>
+                        <a href="{{ path('fos_user_resetting_request') }}">Forgot password?</a>
+                    </sup>
+                </div>
+                <br />
+                <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}" />
+                <button class="btn-flat waves-effect waves-light cyan darken-1 white-text" type="submit">Submit <i class="material-icons right">send</i></button>
+            </form>
+        </div>
     </div>
-    <div class="input-field">
-        <input type="password" name="_password" class="active validate black-text" required="required" />
-        <label for="_password">Password</label>
-        <sup>
-            <a href="{{ path('fos_user_resetting_request') }}">Forgot password?</a>
-        </sup>
-    </div>
-    <br />
-    <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}" />
-    <button class="btn-flat waves-effect waves-light cyan darken-1 white-text" type="submit">Submit <i class="material-icons right">send</i></button>
-</form>
+</div>
