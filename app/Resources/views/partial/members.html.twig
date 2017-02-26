@@ -4,7 +4,10 @@
         <ul class="collection">
             {% for user in club.users %}
                 <li class="collection-item avatar">
-                    <a href="{{ path('app_other_show', {'id': user.id}) }}"><i class="material-icons circle cyan darken-3">account_box</i></a>
+                    <a href="{{ path('app_other_show', {'id': user.id}) }}">
+                        {#<img src="{{ asset('img/large_image.jpg') }}" class="circle" />#}
+                        <i class="material-icons circle cyan darken-3">account_box</i>
+                    </a>
                     <span class="title"><a href="{{ path('app_other_show', {'id': user.id}) }}">{{ user.userName }}</a></span>
                     <span class="secondary-content hide-on-med-and-down">
                             <a href="{{ path('app_other_show', {'id': user.id}) }}" class="btn waves-effect waves-light cyan darken-1">Show profile</a>
