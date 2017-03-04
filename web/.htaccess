@@ -28,9 +28,9 @@ DirectoryIndex app.php
     # fits all solution. But as you do not need it in this case, you can comment
     # the following 2 lines to eliminate the overhead.
 
-    RewriteCond %{HTTP_HOST} ^duebat\.com [NC]
+    RewriteCond %{HTTP_HOST} ^duesbot\.com [NC]
     RewriteCond %{SERVER_PORT} 80 
-    RewriteRule ^(.*)$ https://www.duebat.com/$1 [R,L]
+    RewriteRule ^(.*)$ https://www.duesbot.com/$1 [R,L]
 
 
     RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$

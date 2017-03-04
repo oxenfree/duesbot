@@ -78,4 +78,4 @@ fos_user:
             email:
                 from_email:
                     address:        asolivieri@gmail.com
-                    sender_name:    Duebat Reset
+                    sender_name:    Duesbot Reset

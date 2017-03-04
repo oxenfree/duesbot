@@ -54,7 +54,7 @@ class EmailManager
 
     public function sendConfirmationEmail(User $user)
     {
-        $subject = "Thanks for signing up with Duebat";
+        $subject = "Thanks for signing up with Duesbot";
         $from = $this->adminEmail;
         $emailBody = $this->renderConfirmationTemplate($user);
 
