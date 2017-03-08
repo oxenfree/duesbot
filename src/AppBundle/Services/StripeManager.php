@@ -9,6 +9,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Club;
+use AppBundle\Entity\Due;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Balance;
@@ -74,6 +75,15 @@ class StripeManager
     }
 
     /**
+     * @param Due $due
+     */
+    public function cancelDues(Due $due)
+    {
+        $sub = Subscription::retrieve($due->getSubscriptionId());
+        $sub->cancel();
+    }
+
+    /**
      * @param $amount
      * @param User $user
      *
@@ -94,6 +104,11 @@ class StripeManager
 
     }
 
+    /**
+     * @param $id
+     *
+     * @return bool|Plan
+     */
     public function getPlan($id)
     {
         try {
@@ -105,6 +120,13 @@ class StripeManager
         return $plan;
     }
 
+    /**
+     * @param Club $club
+     * @param $planId
+     * @param $amount
+     *
+     * @return Plan
+     */
     public function createPlan(Club $club, $planId, $amount)
     {
         $plan = Plan::create([
@@ -118,14 +140,25 @@ class StripeManager
         return $plan;
     }
 
+    /**
+     * @param Customer $customer
+     * @param $planId
+     *
+     * @return mixed|null
+     */
     public function createSubscription(Customer $customer, $planId)
     {
-        Subscription::create(array(
+       $subscription = Subscription::create([
             "customer" => $customer->id,
             "plan" => $planId,
-        ));
+       ]);
+
+       return $subscription->id;
     }
 
+    /**
+     * @return Balance
+     */
     public function getBalance()
     {
         return Balance::retrieve();

@@ -62,6 +62,13 @@ class Due
     private $checkedOut;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="subscription_id", type="string", length=255, nullable=true)
+     */
+    private $subscriptionId;
+
+    /**
      * Due constructor.
      */
     public function __construct()
@@ -96,6 +103,7 @@ class Due
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -115,6 +123,7 @@ class Due
     public function setClub($club)
     {
         $this->club = $club;
+
         return $this;
     }
 
@@ -134,6 +143,7 @@ class Due
     public function setAmountPerMonth($amountPerMonth)
     {
         $this->amountPerMonth = $amountPerMonth;
+
         return $this;
     }
 
@@ -153,6 +163,26 @@ class Due
     public function setCheckedOut($checkedOut)
     {
         $this->checkedOut = $checkedOut;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionId()
+    {
+        return $this->subscriptionId;
+    }
+
+    /**
+     * @param string $subscriptionId
+     *
+     * @return Due
+     */
+    public function setSubscriptionId($subscriptionId)
+    {
+        $this->subscriptionId = $subscriptionId;
 
         return $this;
     }

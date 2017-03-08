@@ -10,9 +10,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Due;
+use AppBundle\Entity\User;
 use AppBundle\Form\DueType;
 use Stripe\Error\Card as CardError;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -56,9 +58,7 @@ class DueController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())   {
-            $due->setUser($user)
-                ->setClub($club)
-            ;
+            $due->setUser($user)->setClub($club);
             $em = $this->getDoctrine()->getManager();
             $em->persist($due);
             $em->flush();
@@ -84,7 +84,9 @@ class DueController extends Controller
     public function checkoutAction(Request $request)
     {
         $user = $this->getUser();
+        /** @var Club $club */
         $club = $user->getClub();
+        /** @var Due $due */
         $due = $this
             ->getDoctrine()
             ->getRepository(Due::class)
@@ -114,7 +116,7 @@ class DueController extends Controller
                     $stripeManager->createPlan($club, $planId, $amountToStripe);
                 }
 
-                $stripeManager->createSubscription($customer, $planId);
+                $due->setSubscriptionId($stripeManager->createSubscription($customer, $planId));
 
             } catch (CardError $e)    {
                 $error = sprintf('There was a charge error. %s Please try again.', $e->getMessage());
@@ -137,5 +139,26 @@ class DueController extends Controller
             'stripe_public_key' => $this->container->getParameter('stripe_public_key'),
             'error' => $error,
         ]);
+    }
+
+    /**
+     * @Route("/cancel/{id}", name="app_due_cancel")
+     * @Method({"DELETE"})
+     *
+     * @param $id
+     *
+     * @return JsonResponse
+     */
+    public function cancelAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Due $due */
+        $due = $em->getRepository(Due::class)->find($id);
+        $stripeManager = $this->get('stripe_manager');
+        $stripeManager->cancelDues($due);
+        $em->remove($due);
+        $em->flush();
+
+        return new JsonResponse($this->generateUrl('app_index'));
     }
 }

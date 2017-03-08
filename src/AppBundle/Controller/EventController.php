@@ -218,7 +218,7 @@ class EventController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function deleteAction($id)
     {

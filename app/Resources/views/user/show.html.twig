@@ -8,6 +8,7 @@
                     <ul class="collection">
                         <li class="collection-item avatar">
                             {#<img src="{{ asset('img/large_image.jpg') }}" class="circle" />#}
+                            <i class="material-icons circle cyan darken-3">perm_identity</i>
                             <span class="title">{{ user.userName }}</span>
                             <p>
                                 <strong>Email:</strong> {{ user.email }}
@@ -19,9 +20,24 @@
                         {% if dues is not empty and app.user == user %}
                         <li class="collection-item">
                             <span class="title"><strong>Your dues</strong></span>
-                                {% for due in dues %}
-                                    <p>${{ due.amountPerMonth|number_format(2) }} per month</p>
-                                {% endfor %}
+                            {% for due in dues %}
+                                <div id="due-{{ due.id }}">
+                                    <p>
+                                        ${{ due.amountPerMonth|number_format(2) }} per month {{ user.stripeCustomerId }}
+                                    </p>
+                                    <p>
+                                        <a  data-target="cancel_modal"
+                                            data-href="{{ path('app_due_cancel', {'id': due.id}) }}"
+                                            data-id="{{ due.id }}"
+                                            data-title="{{ user.club.name }}"
+                                            data-desc="${{ due.amountPerMonth|number_format(2) }} per month"
+                                            class="btn waves-effect waves-light orange accent-2 cancel-button">
+                                            <i class="material-icons">delete_forever</i>
+                                            Cancel dues
+                                        </a>
+                                    </p>
+                                </div>
+                            {% endfor %}
                         </li>
                         {% endif %}
                         {% if events is not empty %}
