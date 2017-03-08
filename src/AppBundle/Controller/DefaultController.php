@@ -28,8 +28,8 @@ class DefaultController extends Controller
         $checker = $this->get('security.authorization_checker');
 
         if ($checker->isGranted('ROLE_USER'))   {
-            return $this->redirectToRoute('app_logged_in_index');
 
+            return $this->redirectToRoute('app_logged_in_index');
         }
 
         $template = 'default/index.html.twig';
@@ -50,6 +50,13 @@ class DefaultController extends Controller
      */
     public function loggedInAction()
     {
+        $checker = $this->get('security.authorization_checker');
+
+        if (!$checker->isGranted('ROLE_USER'))   {
+
+            return $this->redirect('/login');
+        }
+
         $currentUser = $this->getUser();
         // set club to bat country
         $bcEast = $this
