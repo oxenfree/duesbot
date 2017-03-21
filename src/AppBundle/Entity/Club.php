@@ -57,6 +57,7 @@ class Club
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="club", cascade={"persist", "remove"})
      */
     private $events;
+
     /**
      * Club constructor.
      */

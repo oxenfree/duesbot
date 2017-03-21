@@ -2,10 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Club;
-use AppBundle\Entity\Due;
-use AppBundle\Entity\Event;
-use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,74 +25,9 @@ class DefaultController extends Controller
 
         if ($checker->isGranted('ROLE_USER'))   {
 
-            return $this->redirectToRoute('app_logged_in_index');
+            return $this->redirectToRoute('app_club_index');
         }
 
-        $template = 'default/index.html.twig';
-        $renderParams = [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-            'allUsers' => $this->get('fos_user.user_manager')->findUsers(),
-            'allClubs' => $this->getDoctrine()->getRepository(Club::class)->findAll(),
-            'allEvents' => $this->getDoctrine()->getRepository(Event::class)->findAll(),
-        ];
-
-        return $this->render($template, $renderParams);
-    }
-
-    /**
-     * @Route("/main", name="app_logged_in_index")
-     *
-     * @return Response
-     */
-    public function loggedInAction()
-    {
-        $checker = $this->get('security.authorization_checker');
-
-        if (!$checker->isGranted('ROLE_USER'))   {
-
-            return $this->redirect('/login');
-        }
-
-        $currentUser = $this->getUser();
-        // set club to bat country
-        $bcEast = $this
-            ->getDoctrine()
-            ->getRepository(Club::class)
-            ->findOneBy(['name' => 'Bat Country East']);
-        $currentUser->setClub($bcEast);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($currentUser);
-        $em->flush();
-
-        $balanceObj = $this->get('stripe_manager')->getBalance();
-        $pending = $balanceObj['pending'][0]['amount'] / 100;
-        $available = $balanceObj['available'][0]['amount'] / 100;
-
-        $eventCost = 0;
-        foreach ($bcEast->getEvents() as $event) {
-            $eventCost += $event->getEstimatedCost();
-        }
-
-        $dues = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository(Due::class)
-            ->findOneBy(['user' => $currentUser, 'club' => $currentUser->getClub()])
-        ;
-
-        $template = 'default/index_logged_in.html.twig';
-
-        $renderParams = [
-            'user' => $currentUser,
-            'club' => $currentUser->getClub(),
-            'events' => $currentUser->getClub()->getEvents(),
-            'dues' => $dues,
-            'available' => $available,
-            'pending' => $pending,
-            'eventCost' => $eventCost,
-        ];
-
-        return $this->render($template, $renderParams);
+        return $this->render('default/index.html.twig');
     }
 }

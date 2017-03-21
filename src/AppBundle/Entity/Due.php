@@ -78,7 +78,6 @@ class Due
         }
     }
 
-
     /**
      * @return int
      */

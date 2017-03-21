@@ -30,7 +30,7 @@ class StripeManager
     /**
      * StripeManager constructor.
      *
-     * @param $secretKey
+     * @param string                 $secretKey
      * @param EntityManagerInterface $entityManager
      */
     public function __construct($secretKey, EntityManagerInterface $entityManager)
@@ -40,8 +40,8 @@ class StripeManager
     }
 
     /**
-     * @param User $user
-     * @param $paymentToken
+     * @param User   $user
+     * @param string $paymentToken
      *
      * @return Customer
      */
@@ -60,8 +60,8 @@ class StripeManager
     }
 
     /**
-     * @param User $user
-     * @param $paymentToken
+     * @param User   $user
+     * @param string $paymentToken
      *
      * @return Customer
      */
@@ -84,8 +84,8 @@ class StripeManager
     }
 
     /**
-     * @param $amount
-     * @param User $user
+     * @param float $amount
+     * @param User  $user
      *
      * @return Charge
      */
@@ -121,9 +121,9 @@ class StripeManager
     }
 
     /**
-     * @param Club $club
-     * @param $planId
-     * @param $amount
+     * @param Club   $club
+     * @param string $planId
+     * @param float  $amount
      *
      * @return Plan
      */
@@ -142,7 +142,7 @@ class StripeManager
 
     /**
      * @param Customer $customer
-     * @param $planId
+     * @param string   $planId
      *
      * @return mixed|null
      */
@@ -157,10 +157,14 @@ class StripeManager
     }
 
     /**
-     * @return Balance
+     * @return array
      */
     public function getBalance()
     {
-        return Balance::retrieve();
+        $balance = Balance::retrieve();
+        $pending = $balance['pending'][0]['amount'] / 100;
+        $available = $balance['available'][0]['amount'] / 100;
+
+        return ['pending' => $pending, 'available' => $available];
     }
 }

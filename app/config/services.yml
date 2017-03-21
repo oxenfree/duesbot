@@ -21,3 +21,10 @@ services:
       class: AppBundle\Services\EmailManager
       arguments: ['@doctrine.orm.entity_manager', '@mailer', '@twig', '%admin_email%']
 
+  club_service:
+      class: AppBundle\Services\ClubService
+      autowire: true
+
+  dues_service:
+      class: AppBundle\Services\DuesService
+      autowire: true

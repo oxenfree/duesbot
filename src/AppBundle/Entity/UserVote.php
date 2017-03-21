@@ -68,11 +68,13 @@ class UserVote
 
     /**
      * @param Event $event
+     *
      * @return UserVote
      */
     public function setEvent($event)
     {
         $this->event = $event;
+
         return $this;
     }
 
@@ -86,11 +88,13 @@ class UserVote
 
     /**
      * @param User $user
+     *
      * @return UserVote
      */
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -104,11 +108,13 @@ class UserVote
 
     /**
      * @param mixed $voteYes
+     *
      * @return UserVote
      */
     public function setVoteYes($voteYes)
     {
         $this->voteYes = $voteYes;
+
         return $this;
     }
 }

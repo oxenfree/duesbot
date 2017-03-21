@@ -143,7 +143,6 @@ class Event
         }
     }
 
-
     /**
      * Get id
      *

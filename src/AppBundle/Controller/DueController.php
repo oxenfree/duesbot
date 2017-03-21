@@ -105,7 +105,8 @@ class DueController extends Controller
             try {
                 $customer = (!$user->getStripeCustomerId()) ?
                     $stripeManager->createCustomer($user, $token) :
-                    $stripeManager->updateCustomer($user, $token);
+                    $stripeManager->updateCustomer($user, $token)
+                ;
 
                 $amountToStripe = $due->getAmountPerMonth() * 100;
 

@@ -13,8 +13,6 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\EventStatus;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserVote;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Validator\Constraints\Date;
 
 class EventManager
 {
@@ -50,6 +48,10 @@ class EventManager
         return $vote;
     }
 
+    /**
+     * @param Event $event
+     * @param Club  $club
+     */
     public function fillEvent(Event $event, Club $club)
     {
         $status = (new EventStatus())
@@ -64,6 +66,11 @@ class EventManager
         ;
     }
 
+    /**
+     * @param Event $event
+     *
+     * @return \DateTime
+     */
     public function setVotingEndDate(Event $event)
     {
         $votingEnd = new \DateTime($event->getDate()->format('Y-m-d'));

@@ -33,7 +33,7 @@ class EmailManager
     private $twig;
 
     /**
-     * @var
+     * @var string
      */
     private $adminEmail;
 
@@ -41,8 +41,9 @@ class EmailManager
      * EmailManager constructor.
      *
      * @param EntityManagerInterface $em
-     * @param Swift_Mailer $mailer
-     * @param Twig_Environment $twig
+     * @param Swift_Mailer           $mailer
+     * @param Twig_Environment       $twig
+     * @param string                 $adminEmail
      */
     public function __construct(EntityManagerInterface $em, Swift_Mailer $mailer, Twig_Environment $twig, $adminEmail)
     {
