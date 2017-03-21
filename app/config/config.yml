@@ -77,5 +77,5 @@ fos_user:
     resetting:
             email:
                 from_email:
-                    address:        asolivieri@gmail.com
+                    address:        "%admin_email%"
                     sender_name:    Duesbot Reset

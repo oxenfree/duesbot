@@ -1,13 +1,10 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/service_container.html
+imports:
+    - { resource: parameters.yml }
+
 parameters:
-    admin_email: asolivieri@gmail.com
-#    parameter_name: value
+    admin_email: "%admin_email%"
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
   event_manager:
       class: AppBundle\Services\EventManager
