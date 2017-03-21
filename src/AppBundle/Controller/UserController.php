@@ -97,7 +97,10 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $um = $this->get('fos_user.user_manager');
+            $um->updateUser($user);
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Profile updated.');
 
             return $this->redirectToRoute('app_profile_show');
         }
