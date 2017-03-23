@@ -1,9 +1,6 @@
 imports:
     - { resource: parameters.yml }
 
-parameters:
-    admin_email: "%admin_email%"
-
 services:
 
   event_manager:
