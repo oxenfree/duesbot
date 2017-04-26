@@ -36,16 +36,15 @@ class ClubController extends Controller
         $clubService = $this->get('club_service');
         $club = $clubService->checkClub($user);
         $eventCosts = $clubService->checkEventCosts($club);
-        $balance = $this->get('stripe_manager')->getBalance();
+        $clubDues = $clubService->getCurrentDues($club);
         $dues = $this->get('dues_service')->getDuesForUser($user);
 
         return $this->render('club/index.html.twig', [
             'user' => $user,
             'club' => $club,
             'events' => $club->getEvents(),
+            'clubDues' => $clubDues,
             'dues' => $dues,
-            'pending' => $balance['pending'],
-            'available' => $balance['available'],
             'eventCosts' => $eventCosts,
         ]);
     }

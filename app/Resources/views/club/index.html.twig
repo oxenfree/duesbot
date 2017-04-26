@@ -8,38 +8,19 @@
                 Your club, <a href="#members_modal">{{ club.name }}</a>, has:
             </p>
         </div>
-        <div class="row">
-            <div class="section col s12 l6">
-                <h5>Treasury</h5>
-                <p>
-                    ${{ available|number_format(2) }}
-                </p>
-            </div>
-            <div class="section col s12 l6">
-                <h5>Pending treasury:</h5>
-                <p>
-                    ${{ pending|number_format(2) }} <sup><a href="#note">1</a></sup>
-                </p>
-            </div>
+    </div>
+    <div class="row">
+        <div class="section col s12 l6">
+            <h5>Dues Collected Monthly</h5>
+            <p>
+                ${{ clubDues|number_format(2) }}
+            </p>
         </div>
-        <div class="row">
-            <div class="section col s12 l6">
-                <h5>Upcoming events cost:</h5>
-                <p>
-                    ${{ eventCosts|number_format(2) }}
-                </p>
-            </div>
-            <div class="section col s12 l6">
-                <h5>Treasury after events:</h5>
-                <p>
-                    {% set total = (available - eventCosts) %}
-                    {% if total <= 0 %}
-                        <span class="orange-text">$ {{ total }}</span>
-                    {% else %}
-                        ${{ total }}
-                    {% endif %}
-                </p>
-            </div>
+        <div class="section col s12 l6">
+            <h5>Upcoming events cost:</h5>
+            <p>
+                ${{ eventCosts|number_format(2) }}
+            </p>
         </div>
     </div>
     <div class="row">
@@ -91,9 +72,6 @@
                 {% endif %}
                 <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
             {% endif %}
-            <p id="note">
-                <sup><sup>1</sup>Charges may take a few days to clear through the banks and show in the club's treasury.</sup>
-            </p>
         </div>
     </div>
     {% include 'partial/members.html.twig' %}
