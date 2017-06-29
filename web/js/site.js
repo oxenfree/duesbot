@@ -41,11 +41,11 @@ $(document).ready(function(){
     //#############################################
 
     $('.delete-button').on('click', function (e) {
-        var url = $(this).data('href'),
-            redirectRoute = $(this).data('route'),
-            id = $(this).data('id'),
-            name = $(this).attr('data-title'),
-            desc = $(this).attr('data-desc')
+        var $this = $(this),
+            url = $this.data('href'),
+            id = $this.data('id'),
+            name = $this.attr('data-title'),
+            desc = $this.attr('data-desc')
         ;
 
         $('.modal-title').html(name);
@@ -78,11 +78,11 @@ $(document).ready(function(){
     //#############################################
 
     $('.cancel-button').on('click', function (e) {
-        var url = $(this).data('href'),
-            redirectRoute = $(this).data('route'),
-            id = $(this).data('id'),
-            name = $(this).attr('data-title'),
-            desc = $(this).attr('data-desc')
+        var $this = $(this),
+            url = $this.data('href'),
+            id = $this.data('id'),
+            name = $this.attr('data-title'),
+            desc = $this.attr('data-desc')
         ;
 
         $('.modal-title').html(name);
