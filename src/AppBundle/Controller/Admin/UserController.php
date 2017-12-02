@@ -50,12 +50,10 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         $user = new User();
-        $bcEast = $this->getDoctrine()->getRepository(Club::class)->find(1);
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())   {
-            $user->setClub($bcEast);
+        if ($form->isSubmitted() && $form->isValid()) {
             $um = $this->get('fos_user.user_manager');
             $um->updateUser($user);
             $this->addFlash('success', 'Member created!');
@@ -78,9 +76,9 @@ class UserController extends Controller
      */
     public function showUser(User $user)
     {
-       return$this->render('Admin/user/show.html.twig', [
-           'user' => $user,
-       ]);
+        return $this->render('Admin/user/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -96,7 +94,7 @@ class UserController extends Controller
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())   {
+        if ($form->isSubmitted() && $form->isValid()) {
             $um = $this->get('fos_user.user_manager');
             $um->updateUser($user);
             $this->addFlash('success', 'Member edited!');
@@ -115,7 +113,7 @@ class UserController extends Controller
      *
      * @param User $user
      *
-     *@return RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteUser(User $user)
     {

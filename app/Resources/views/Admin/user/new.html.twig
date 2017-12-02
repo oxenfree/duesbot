@@ -8,16 +8,18 @@
         {{ form_row(form.email) }}
     </div>
     <div>
+        {{ form_row(form.club) }}
+    </div>
+    <div>
         {{ form_row(form.roles) }}
     </div>
     <div class="input-field">
         {{ form_row(form.plainPassword.first) }}
     </div>
-
     <div class="input-field">
         {{ form_row(form.plainPassword.second) }}
     </div>
-    <button type="submit"class="btn waves-effect waves-lighten blue lighten-1">Submit</button><br />
+    <button type="submit" class="btn waves-effect waves-lighten blue lighten-1">Submit</button><br/>
     <a href="{{ path('app_admin_user_list_all') }}">Back to the list</a>
     {{ form_end(form) }}
 {% endblock %}

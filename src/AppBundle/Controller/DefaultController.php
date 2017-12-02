@@ -2,10 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class DefaultController
@@ -22,8 +22,13 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $checker = $this->get('security.authorization_checker');
+        $user = $this->getUser();
 
-        if ($checker->isGranted('ROLE_USER'))   {
+        if ($checker->isGranted('ROLE_USER')) {
+            if ($user && null != $user->getClub()) {
+
+                return $this->redirectToRoute('app_club_show', ['club' => $user->getClub()->getId()]);
+            }
 
             return $this->redirectToRoute('app_club_index');
         }

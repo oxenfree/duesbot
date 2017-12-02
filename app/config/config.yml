@@ -40,6 +40,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         fos_csrf_provider: "@security.csrf.token_manager"
+    cache: false
 
 # Doctrine Configuration
 doctrine:
@@ -74,10 +75,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
-    email:
-        from_email:
-                  address:        "%admin_email%"
-                  sender_name:    Duesbot
+    from_email:
+              address:        "%admin_email%"
+              sender_name:    Duesbot
     resetting:
             email:
                 from_email:

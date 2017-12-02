@@ -1,6 +1,7 @@
 {% extends 'Admin/base.html.twig' %}
 {% set page_title="Clubs" %}
 {% block body %}
+    <h5>All Clubs</h5>
     <table class="table">
         <tr>
             <th>
@@ -35,6 +36,36 @@
         {% endfor %}
     </table>
     <a class="btn waves-effect waves-light blue lighten-1" href="{{ path('app_admin_club_create') }}">Create New Club</a>
+    <h5>Treasury Report</h5>
+    <table class="responsive-table striped">
+        <tr>
+            <th>Total Treasuries</th>
+            <th>Max Treasury</th>
+            <th>Min Treasury</th>
+            <th>Average Treasury</th>
+        </tr>
+        <tr>
+            <td>$ {{ total_treasuries|number_format(2) }}</td>
+            <td>$ {{ max|number_format(2) }}</td>
+            <td>$ {{ min|number_format(2) }}</td>
+            <td>$ {{ avg|number_format(2) }}</td>
+        </tr>
+    </table>
+    <h5>Member Report</h5>
+    <table class="responsive-table striped">
+        <tr>
+            <th>Total Members</th>
+            <th>Max Members</th>
+            <th>Min Members</th>
+            <th>Average Members</th>
+        </tr>
+        <tr>
+            <td>{{ total_members }}</td>
+            <td> {{ max_members }}</td>
+            <td> {{ min_members }}</td>
+            <td>{{ avg_members }}</td>
+        </tr>
+    </table>
 {% endblock %}
 {% block stylesheets %}
 {% endblock %}

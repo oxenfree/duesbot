@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% set page_title="Welcome " ~ user.userName %}
+{% block body %}
+    <div class="row">
+        <div class="section col s12">
+            <h5>{{ user.userName }},</h5>
+            <p>
+                Your club, <a href="#members_modal">{{ club.name }}</a>, has:
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section col s12 l6">
+            <h5>Dues Collected Monthly</h5>
+            <p>
+                ${{ clubDues|number_format(2) }}
+            </p>
+        </div>
+        <div class="section col s12 l6">
+            <h5>Upcoming events cost:</h5>
+            <p>
+                ${{ eventCosts|number_format(2) }}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section col s12">
+            {% if dues is null or dues.isCheckedOut == false %}
+                <p>
+                    Once you've <a href="{{ path('app_due_create') }}">paid dues</a>, you'll be able to create and vote on events.
+                </p>
+                <p>
+                    <a href="{{ path('app_due_create') }}" class="btn waves-effect waves-light blue lighten-1">Pay dues</a>
+                </p>
+            {% else %}
+                {% if events %}
+                    <h5>Events</h5>
+                    {% for event in events %}
+                        <ul class="collection" id="ul-event-{{ event.id }}">
+                            <li class="collection-item avatar">
+                                <a href="{{ path('app_event_show', {'id': event.id}) }}">
+                                    <i class="material-icons circle cyan darken-3">event</i>
+                                </a>
+                                <span class="title"><a href="{{ path('app_event_show', {'id': event.id}) }}" class="cyan-text"><strong>{{ event.name[:25] ~ ' ...'  }}</strong></a></span>
+                                <p>
+                                    Event date: {{ event.date|date('D M/d/Y') }}
+                                </p>
+                                <p>
+                                    Votes yes: {{ event.voteTotal }}
+                                </p>
+                                <p>
+                                    Event status: {{ event.status }}
+                                </p>
+                                <span class="secondary-content hide-on-med-and-down">
+                                {% if user == event.owner %}
+                                    <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn waves-effect waves-light blue lighten-1"><i class="material-icons">edit</i> Edit</a>
+                                    <a  data-target="delete_modal"
+                                        data-href="{{ path('app_event_delete', {'id': event.id}) }}"
+                                        data-id="{{ event.id }}"
+                                        data-title="{{ event.name }}"
+                                        data-desc="{{ event.description }}"
+                                        class="btn waves-effect waves-light orange accent-2 delete-button">
+                                        <i class="material-icons">delete_forever</i>
+                                        Delete
+                                    </a>
+                                {% endif %}
+                                    <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn waves-effect waves-light cyan darken-1">Show event</a>
+                            </span>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+                <a href="{{ path('app_event_create') }}" class="btn waves-effect waves-light blue lighten-1">Create new event</a>
+            {% endif %}
+        </div>
+    </div>
+    {% include 'partial/members.html.twig' %}
+{% endblock %}
