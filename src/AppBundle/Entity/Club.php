@@ -226,4 +226,9 @@ class Club
 
         return $this;
     }
+
+    public function toString()
+    {
+        return $this->getName();
+    }
 }

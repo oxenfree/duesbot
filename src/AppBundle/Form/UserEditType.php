@@ -8,7 +8,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Club;
 use AppBundle\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -35,14 +37,19 @@ class UserEditType extends AbstractType
                     'class' => 'materialize-textarea',
                 ],
             ])
+            ->add('club', EntityType::class, [
+                'class' => Club::class,
+                'choice_label' => function (Club $club) {
+                    return $club->getName();
+                }
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Member' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                 ],
                 'multiple' => true,
-            ])
-        ;
+            ]);
 
         /*
          * This event listener checks the form before it is submitted to see if the User is new.

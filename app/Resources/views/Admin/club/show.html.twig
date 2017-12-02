@@ -31,6 +31,19 @@
         </td>
     </tr>
 </table>
+    <h5>Club Members</h5>
+<table class="responsive-table striped">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    {% for user in club.users %}
+    <tr>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
 <a href="{{ path('app_admin_club_list_all') }}">Back to the list</a>
 {% endblock %}
 {% block stylesheets %}
